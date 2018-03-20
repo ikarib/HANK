@@ -1,0 +1,9 @@
+# exclude these directories:
+FortranOutputDir
+FiguresDir
+mycode/INITSS
+mycode/TRANS
+*.o
+*.mod
+Fortran/Main
+Fortran/Main.baseline

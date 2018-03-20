@@ -3,8 +3,8 @@ clear;
 % close all;
 
 %% PARAMETERS
-InputDir = '~/FortranOutputDir/BaselineOutputSubdir/'; %path to fortran output
-lSaveDir = '~/FiguresDir'; %path to directory to save figures
+InputDir = '../FortranOutputDir/BaselineOutputSubdir/'; %path to fortran output
+lSaveDir = '../FiguresDir'; %path to directory to save figures
 
 lSave = 1;
 
@@ -385,7 +385,7 @@ f1 = ezplot(@(x)adjcostfn((x./100).*laplot,laplot).*100./((abs(x)./100).*laplot)
 ylim([0 0.25]);
 grid on;
 set(f1,'LineWidth',3.5,'Color','r');
-set(f2,'LineWidth',3.5,'Color','b');
+% set(f2,'LineWidth',3.5,'Color','b');
 
 xlabel('Quarterly Deposit/Withdrawal, \% of Stock','FontSize',20,'interpreter','latex');
 ylabel('\% of Stock','FontSize',20,'interpreter','latex');

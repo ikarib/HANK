@@ -4,8 +4,8 @@ close all;
 
 %% PARAMETERS
 
-BaseInputDir = '~/FortranOutputDir/BaselineOutputSubdir/'; 
-SaveFigsDir = '~/FiguresDir'; 
+BaseInputDir = '../FortranOutputDir/BaselineOutputSubdir/'; 
+SaveFigsDir = '../FiguresDir'; 
 
 
 %% OPTIONS

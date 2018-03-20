@@ -3,8 +3,8 @@ close all;
 
 %% PARAMETERS
 
-BaseInputDir = '~/FortranOutputDir/'; 
-lSaveDir =  '~/FiguresDir'; 
+BaseInputDir = '../FortranOutputDir/'; 
+lSaveDir =  '../FiguresDir'; 
 
 modeldir{1} = 'philcurve_T'; %folders should be named modeldir{1}_i for i = 1 to nphilpoints;
 modeldir{2} = 'philcurve_B';

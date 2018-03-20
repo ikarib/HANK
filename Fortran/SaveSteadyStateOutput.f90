@@ -12,11 +12,12 @@ CHARACTER	:: lstring*80
 IF (Display>=1) write(*,*) 'Saving output to disk'
 
 !grids
-OPEN(3, FILE = trim(OutputDir) // 'agrid.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,ngpa,1,agrid)
-OPEN(3, FILE = trim(OutputDir) // 'bgrid.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,ngpb,1,bgrid)
-OPEN(3, FILE = trim(OutputDir) // 'ygrid.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,ngpy,1,ygrid)
-OPEN(3, FILE = trim(OutputDir) // 'adelta.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,ngpa,1,adelta)
-OPEN(3, FILE = trim(OutputDir) // 'bdelta.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,ngpb,1,bdelta)
+!OPEN(3, FILE = trim(OutputDir) // 'agrid.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,ngpa,1,agrid)
+!OPEN(3, FILE = trim(OutputDir) // 'bgrid.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,ngpb,1,bgrid)
+!OPEN(3, FILE = trim(OutputDir) // 'ygrid.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,ngpy,1,ygrid)
+!OPEN(3, FILE = trim(OutputDir) // 'ydist.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,ngpy,1,ydist)
+!OPEN(3, FILE = trim(OutputDir) // 'adelta.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,ngpa,1,adelta)
+!OPEN(3, FILE = trim(OutputDir) // 'bdelta.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,ngpb,1,bdelta)
 
 !initial steady state summary stats
 OPEN(3, FILE = trim(OutputDir) // 'InitialSteadyStateParameters.txt', STATUS = 'replace')
@@ -108,6 +109,90 @@ OPEN(3, FILE = trim(OutputDir) // 'InitialSteadyStateParameters.txt', STATUS = '
 
 
 CLOSE(3)
+
+!OPEN(3, FILE = trim(OutputDir) // 'c.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,nab,ngpy,reshape(c,(/nab,ngpy/))) 
+!OPEN(3, FILE = trim(OutputDir) // 'h.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,nab,ngpy,reshape(h,(/nab,ngpy/))) 
+!OPEN(3, FILE = trim(OutputDir) // 's.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,nab,ngpy,reshape(s,(/nab,ngpy/))) 
+!OPEN(3, FILE = trim(OutputDir) // 'd.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,nab,ngpy,reshape(d,(/nab,ngpy/))) 
+!OPEN(3, FILE = trim(OutputDir) // 'u.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,nab,ngpy,reshape(u,(/nab,ngpy/))) 
+!OPEN(3, FILE = trim(OutputDir) // 'bdot.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,nab,ngpy,reshape(bdot,(/nab,ngpy/))) 
+!OPEN(3, FILE = trim(OutputDir) // 'V.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,nab,ngpy,reshape(V,(/nab,ngpy/))) 
+!OPEN(3, FILE = trim(OutputDir) // 'Vnew.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,nab,ngpy,reshape(Vnew,(/nab,ngpy/))) 
+!OPEN(3, FILE = trim(OutputDir) // 'ACOOrow.txt', STATUS = 'replace'); 
+!OPEN(4, FILE = trim(OutputDir) // 'ACOOcol.txt', STATUS = 'replace'); 
+!OPEN(5, FILE = trim(OutputDir) // 'ACOOval.txt', STATUS = 'replace'); 
+!OPEN(6, FILE = trim(OutputDir) // 'AUCOOrow.txt', STATUS = 'replace'); 
+!OPEN(7, FILE = trim(OutputDir) // 'AUCOOcol.txt', STATUS = 'replace'); 
+!OPEN(8, FILE = trim(OutputDir) // 'AUCOOval.txt', STATUS = 'replace'); 
+!OPEN(9, FILE = trim(OutputDir) // 'BCSRrow.txt', STATUS = 'replace'); 
+!OPEN(10, FILE = trim(OutputDir) // 'BCSRcol.txt', STATUS = 'replace'); 
+!OPEN(11, FILE = trim(OutputDir) // 'BCSRval.txt', STATUS = 'replace'); 
+!DO iy = 1,ngpy
+!	WRITE(3,'(10000G26.15)') ACOO(iy)%row
+!	WRITE(4,'(10000G26.15)') ACOO(iy)%col
+!	WRITE(5,'(10000G26.15)') ACOO(iy)%val
+!	WRITE(6,'(6000G26.15)') AUCOO(iy)%row
+!	WRITE(7,'(6000G26.15)') AUCOO(iy)%col
+!	WRITE(8,'(6000G26.15)') AUCOO(iy)%val
+!	WRITE(9,'(2001G26.15)') BCSR(iy)%row
+!	WRITE(10,'(10000G26.15)') BCSR(iy)%col
+!	WRITE(11,'(10000G26.15)') BCSR(iy)%val
+!END DO
+!CLOSE(3)
+!CLOSE(4)
+!CLOSE(5)
+!CLOSE(6)
+!CLOSE(7)
+!CLOSE(8)
+!CLOSE(9)
+!CLOSE(10)
+!CLOSE(11)
+!OPEN(3, FILE = trim(OutputDir) // 'gmat.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,nab,ngpy,reshape(gmat,(/nab,ngpy/))) 
+
+!OPEN(3, FILE = trim(OutputDir) // 'lccumvec.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,nab,ngpy,lccumvec) 
+!OPEN(3, FILE = trim(OutputDir) // 'ldcumvec.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,nab,ngpy,ldcumvec) 
+!CALL EXIT(0)
+
+!OPEN(1, FILE = trim(OutputDir) // 'AUCOOrow.txt', STATUS = 'replace'); 
+!OPEN(2, FILE = trim(OutputDir) // 'AUCOOcol.txt', STATUS = 'replace'); 
+!OPEN(3, FILE = trim(OutputDir) // 'AUCOOval.txt', STATUS = 'replace'); 
+!DO iy = 1,ngpy
+!	AUCOO(iy)%row = 0
+!	AUCOO(iy)%col = 0
+!	AUCOO(iy)%val = 0.0_8
+!	AUCOO(iy)%nz = 0
+!	CALL csrcoo (nab, 3, AUCSR(iy)%nz, AUCSR(iy)%val, AUCSR(iy)%col, AUCSR(iy)%row, AUCOO(iy)%nz, AUCOO(iy)%val, AUCOO(iy)%row, AUCOO(iy)%col, ierr )
+!	IF (ierr) THEN
+!		WRITE(*,*) "error=", ierr
+!	END IF
+!	WRITE(1,'(6000G26.15)') AUCOO(iy)%row
+!	WRITE(2,'(6000G26.15)') AUCOO(iy)%col
+!	WRITE(3,'(6000G26.15)') AUCOO(iy)%val
+!END DO
+!CLOSE(1)
+!CLOSE(2)
+!CLOSE(3)
+
+!OPEN(3, FILE = trim(OutputDir) // 'lsubeff1ass.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,nab,ngpy,lsubeff1ass) 
+!OPEN(3, FILE = trim(OutputDir) // 'lsubeff2ass.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,nab,ngpy,lsubeff2ass) 
+!OPEN(3, FILE = trim(OutputDir) // 'lwealtheff1ass.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,nab,ngpy,lwealtheff1ass) 
+!OPEN(3, FILE = trim(OutputDir) // 'lwealtheff2ass.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,nab,ngpy,lwealtheff2ass) 
+
 
 !initial steady state distributions and policy functions
 CALL system ("mkdir -p " // trim(OutputDir) // "INITSS")

@@ -1,0 +1,553 @@
+MATLAB is selecting SOFTWARE OPENGL rendering.
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2017 The MathWorks, Inc.
+                   R2017a (9.2.0.556344) 64-bit (glnxa64)
+                               March 27, 2017
+
+Warning: X does not support locale en_US.UTF-8
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+Starting parallel pool (parpool) using the 'local' profile ...
+connected to 33 workers.
+Solving for initial steady state
+ Steady state equm iter 101, K/N error  1.2700e-11
+Computing cumulative consumption for MPC
+Elapsed time is 27.936007 seconds.
+Computing discounted MPC and wealth in steady state
+Saving output to disk
+Solving for final steady state
+Allocating arrays for transition
+Finished allocating arrays
+Solving for monetary policy shock IRF
+Solving for sticky price transition
+Elapsed time is 36.368450 seconds.
+  Transition iter 1:
+   K err 0.00125188655364188,  B err 0.00597014721228405
+   household bond 1.61716831770271,  target bond 1.61958494996556
+Elapsed time is 35.808408 seconds.
+  Transition iter 2:
+   K err 0.000440909963400373,  B err 0.00535035463364494
+   household bond 1.6174378747858,  target bond 1.6195825333333
+Elapsed time is 36.224933 seconds.
+  Transition iter 3:
+   K err 0.000816751881957481,  B err 0.00512665230425034
+   household bond 1.61751927998851,  target bond 1.61958038867475
+Elapsed time is 35.648308 seconds.
+  Transition iter 4:
+   K err 0.0008881586556165,  B err 0.0048252997729547
+   household bond 1.61764141036529,  target bond 1.61957832756606
+Elapsed time is 35.926238 seconds.
+  Transition iter 5:
+   K err 0.00104550270756563,  B err 0.00456865563751104
+   household bond 1.6177424104274,  target bond 1.61957639064886
+Elapsed time is 36.538839 seconds.
+  Transition iter 6:
+   K err 0.00117357541917359,  B err 0.00432136090076853
+   household bond 1.61784013354069,  target bond 1.61957455666864
+Elapsed time is 35.879562 seconds.
+  Transition iter 7:
+   K err 0.00130205036199544,  B err 0.00409103837819498
+   household bond 1.61793028135721,  target bond 1.61957282224551
+Elapsed time is 36.941084 seconds.
+  Transition iter 8:
+   K err 0.0014217012088081,  B err 0.00387433994962935
+   household bond 1.61801465511399,  target bond 1.61957117970463
+Elapsed time is 36.371467 seconds.
+  Transition iter 9:
+   K err 0.00153599786101135,  B err 0.00367083440400778
+   household bond 1.61809341146117,  target bond 1.61956962318003
+Elapsed time is 37.090388 seconds.
+  Transition iter 10:
+   K err 0.00164248235056545,  B err 0.00347935913801948
+   household bond 1.61816713485142,  target bond 1.61956814696832
+Elapsed time is 37.432020 seconds.
+  Transition iter 11:
+   K err 0.00174302009644977,  B err 0.00329917505518319
+   household bond 1.61823619845196,  target bond 1.6195667459562
+Elapsed time is 36.484986 seconds.
+  Transition iter 12:
+   K err 0.00183633354423964,  B err 0.00312946669423007
+   household bond 1.61830104243668,  target bond 1.61956541540869
+Elapsed time is 37.371184 seconds.
+  Transition iter 13:
+   K err 0.00192379913920246,  B err 0.00297023342309476
+   household bond 1.61836202110919,  target bond 1.61956415103572
+Elapsed time is 37.392770 seconds.
+  Transition iter 14:
+   K err 0.00200539075526857,  B err 0.00282050209014937
+   household bond 1.61841946444909,  target bond 1.6195629489058
+Elapsed time is 37.314125 seconds.
+  Transition iter 15:
+   K err 0.002081008021098,  B err 0.00267907216572356
+   household bond 1.61847365709284,  target bond 1.61956180542134
+Elapsed time is 38.308339 seconds.
+  Transition iter 16:
+   K err 0.00215101483693417,  B err 0.00254543301788991
+   household bond 1.61852481736579,  target bond 1.61956071727301
+Elapsed time is 37.328159 seconds.
+  Transition iter 17:
+   K err 0.00221602464886112,  B err 0.00241907843582619
+   household bond 1.61857307016802,  target bond 1.6195596813731
+Elapsed time is 38.229723 seconds.
+  Transition iter 18:
+   K err 0.00227650585400882,  B err 0.00229947249077578
+   household bond 1.61861933189954,  target bond 1.6195586947619
+Elapsed time is 38.617784 seconds.
+  Transition iter 19:
+   K err 0.00233229171231074,  B err 0.00218631403497636
+   household bond 1.61866283727223,  target bond 1.61955775539904
+Elapsed time is 38.517472 seconds.
+  Transition iter 20:
+   K err 0.0023835852154605,  B err 0.00207915726453164
+   household bond 1.6187039292278,  target bond 1.61955686048091
+Elapsed time is 56.229923 seconds.
+  Transition iter 21:
+   K err 0.00243068809549268,  B err 0.0019775962014521
+   household bond 1.61874277512699,  target bond 1.61955600754966
+Elapsed time is 39.247012 seconds.
+  Transition iter 22:
+   K err 0.00247386461410187,  B err 0.00188132087194171
+   household bond 1.61877973848526,  target bond 1.61955519431723
+Elapsed time is 38.411820 seconds.
+  Transition iter 23:
+   K err 0.00251332404819082,  B err 0.00179002392648368
+   household bond 1.61881485558869,  target bond 1.6195544188614
+Elapsed time is 39.473577 seconds.
+  Transition iter 24:
+   K err 0.00254926973191612,  B err 0.00170342988774537
+   household bond 1.61884811516094,  target bond 1.61955367929813
+Elapsed time is 39.844789 seconds.
+  Transition iter 25:
+   K err 0.00258190325455737,  B err 0.0016212429780324
+   household bond 1.61887966525978,  target bond 1.61955297373399
+Elapsed time is 38.712936 seconds.
+  Transition iter 26:
+   K err 0.00261142114881197,  B err 0.00154361474243448
+   household bond 1.61890961789513,  target bond 1.61955230042552
+Elapsed time is 73.163532 seconds.
+  Transition iter 27:
+   K err 0.00263799622581799,  B err 0.00147013715717875
+   household bond 1.61893805350582,  target bond 1.61955165774299
+Elapsed time is 38.628660 seconds.
+  Transition iter 28:
+   K err 0.00266179220557152,  B err 0.00140031680887042
+   household bond 1.61896508680042,  target bond 1.61955104413875
+Elapsed time is 39.776940 seconds.
+  Transition iter 29:
+   K err 0.00268297051338495,  B err 0.00133395053035687
+   household bond 1.6189907995659,  target bond 1.61955045818141
+Elapsed time is 38.450602 seconds.
+  Transition iter 30:
+   K err 0.00270167668142229,  B err 0.00127082724052036
+   household bond 1.61901528807039,  target bond 1.6195498985228
+Elapsed time is 37.627715 seconds.
+  Transition iter 31:
+   K err 0.00271805090735514,  B err 0.00121081006531369
+   household bond 1.61903858672486,  target bond 1.61954936391234
+Elapsed time is 38.993562 seconds.
+  Transition iter 32:
+   K err 0.00273221985775093,  B err 0.00115371146794551
+   household bond 1.61906098643448,  target bond 1.61954885313516
+Elapsed time is 37.731526 seconds.
+  Transition iter 33:
+   K err 0.00274431183727219,  B err 0.00109940613904149
+   household bond 1.61908234975639,  target bond 1.61954836526846
+Elapsed time is 39.603790 seconds.
+  Transition iter 34:
+   K err 0.00275444042729446,  B err 0.00104774772130853
+   household bond 1.61910268100445,  target bond 1.61954789925294
+Elapsed time is 39.500081 seconds.
+  Transition iter 35:
+   K err 0.00276268584792882,  B err 0.000998596422767062
+   household bond 1.61912202104267,  target bond 1.61954745403469
+Elapsed time is 38.141563 seconds.
+  Transition iter 36:
+   K err 0.00276914394350123,  B err 0.00095182437249759
+   household bond 1.61914042883158,  target bond 1.6195470286017
+Elapsed time is 39.681882 seconds.
+  Transition iter 37:
+   K err 0.00277391865347063,  B err 0.000907299999299975
+   household bond 1.61915794576587,  target bond 1.61954662200193
+Elapsed time is 39.704474 seconds.
+  Transition iter 38:
+   K err 0.00277710810143958,  B err 0.000864905227066885
+   household bond 1.61917464341052,  target bond 1.6195462333257
+Elapsed time is 38.233723 seconds.
+  Transition iter 39:
+   K err 0.00277882251952957,  B err 0.000824539652261004
+   household bond 1.61919054743059,  target bond 1.61954586173578
+Elapsed time is 39.825993 seconds.
+  Transition iter 40:
+   K err 0.00277915020106754,  B err 0.000786088270427906
+   household bond 1.61920570682547,  target bond 1.61954550642148
+Elapsed time is 39.786764 seconds.
+  Transition iter 41:
+   K err 0.00277816003176747,  B err 0.00074945882737
+   household bond 1.61922016514831,  target bond 1.61954516662188
+Elapsed time is 39.401753 seconds.
+  Transition iter 42:
+   K err 0.00277592621246709,  B err 0.000714557998135243
+   household bond 1.61923395945649,  target bond 1.61954484162041
+Elapsed time is 40.243531 seconds.
+  Transition iter 43:
+   K err 0.00277252088460942,  B err 0.000681387447394482
+   household bond 1.61924712832775,  target bond 1.61954453073824
+Elapsed time is 40.682854 seconds.
+  Transition iter 44:
+   K err 0.00276801290194859,  B err 0.000649963062944937
+   household bond 1.61925970142928,  target bond 1.61954423333583
+Elapsed time is 39.693558 seconds.
+  Transition iter 45:
+   K err 0.00276246632786192,  B err 0.000619999725404398
+   household bond 1.61927171670691,  target bond 1.61954394880393
+Elapsed time is 52.527963 seconds.
+  Transition iter 46:
+   K err 0.0027559357199544,  B err 0.000591425046060164
+   household bond 1.61928322666037,  target bond 1.61954367657183
+Elapsed time is 95.322840 seconds.
+  Transition iter 47:
+   K err 0.00274848486027881,  B err 0.000564173950152913
+   household bond 1.61929423021762,  target bond 1.61954341612192
+Elapsed time is 39.896025 seconds.
+  Transition iter 48:
+   K err 0.00274016387104187,  B err 0.000538180047940901
+   household bond 1.61930475610229,  target bond 1.61954316693601
+Elapsed time is 40.982760 seconds.
+  Transition iter 49:
+   K err 0.00273102462048918,  B err 0.000513387680166965
+   household bond 1.61931481925931,  target bond 1.61954292852518
+Elapsed time is 41.332543 seconds.
+  Transition iter 50:
+   K err 0.00272111429098845,  B err 0.000489744020907753
+   household bond 1.61932443312581,  target bond 1.61954270041591
+Elapsed time is 39.445925 seconds.
+  Transition iter 51:
+   K err 0.00271047879194179,  B err 0.000467194527215212
+   household bond 1.61933361874719,  target bond 1.61954248214862
+Elapsed time is 41.352300 seconds.
+  Transition iter 52:
+   K err 0.00269916313735528,  B err 0.000445684603290196
+   household bond 1.61934239281521,  target bond 1.61954227328522
+Elapsed time is 41.348872 seconds.
+  Transition iter 53:
+   K err 0.00268721046595183,  B err 0.000425163829905641
+   household bond 1.61935078275468,  target bond 1.61954207340475
+Elapsed time is 39.914952 seconds.
+  Transition iter 54:
+   K err 0.00267466166822891,  B err 0.000405583404435655
+   household bond 1.619358809062,  target bond 1.6195418821141
+Elapsed time is 42.125023 seconds.
+  Transition iter 55:
+   K err 0.00266155483224508,  B err 0.000386901656671138
+   household bond 1.61936648348542,  target bond 1.61954169904105
+Elapsed time is 41.911176 seconds.
+  Transition iter 56:
+   K err 0.00264792591439055,  B err 0.000369077179350265
+   household bond 1.61937382718699,  target bond 1.61954152382549
+Elapsed time is 40.630601 seconds.
+  Transition iter 57:
+   K err 0.00263380935170457,  B err 0.000352071331022063
+   household bond 1.61938084280019,  target bond 1.61954135612886
+Elapsed time is 41.794973 seconds.
+  Transition iter 58:
+   K err 0.00261923735099119,  B err 0.00033584208986197
+   household bond 1.61938755827494,  target bond 1.61954119561553
+Elapsed time is 41.552629 seconds.
+  Transition iter 59:
+   K err 0.00260424249285856,  B err 0.000320357218961647
+   household bond 1.61939397373746,  target bond 1.61954104197819
+Elapsed time is 41.096359 seconds.
+  Transition iter 60:
+   K err 0.00258885334686493,  B err 0.000305580249813418
+   household bond 1.61940011052917,  target bond 1.61954089490995
+Elapsed time is 40.506927 seconds.
+  Transition iter 61:
+   K err 0.00257309912996601,  B err 0.000291479121733188
+   household bond 1.61940597586038,  target bond 1.61954075412556
+Elapsed time is 41.780889 seconds.
+  Transition iter 62:
+   K err 0.00255700660725862,  B err 0.000278022228997358
+   household bond 1.61941158389815,  target bond 1.6195406193473
+Elapsed time is 41.736608 seconds.
+  Transition iter 63:
+   K err 0.00254060181289654,  B err 0.000265231878277013
+   household bond 1.61941694679849,  target bond 1.61954049031185
+Elapsed time is 40.748223 seconds.
+  Transition iter 64:
+   K err 0.00252390941960714,  B err 0.000253106391998603
+   household bond 1.61942207448787,  target bond 1.61954036676834
+Elapsed time is 42.739712 seconds.
+  Transition iter 65:
+   K err 0.0025069523519817,  B err 0.000241529026667353
+   household bond 1.61942698038541,  target bond 1.61954024847606
+Elapsed time is 42.556010 seconds.
+  Transition iter 66:
+   K err 0.0024897532354703,  B err 0.000230474851504259
+   household bond 1.61943167382316,  target bond 1.61954013520797
+Elapsed time is 40.829779 seconds.
+  Transition iter 67:
+   K err 0.00247233287793331,  B err 0.000219919985193405
+   household bond 1.61943616457874,  target bond 1.61954002674658
+Elapsed time is 42.745113 seconds.
+  Transition iter 68:
+   K err 0.0024547112133173,  B err 0.000209841950481086
+   household bond 1.61944046128923,  target bond 1.61953992288441
+Elapsed time is 42.766378 seconds.
+  Transition iter 69:
+   K err 0.0024369071560479,  B err 0.000200218684839571
+   household bond 1.61944457472138,  target bond 1.61953982342282
+Elapsed time is 42.346426 seconds.
+  Transition iter 70:
+   K err 0.00241893874967337,  B err 0.000191029303661898
+   household bond 1.61944852902187,  target bond 1.61953972817412
+Elapsed time is 41.389147 seconds.
+  Transition iter 71:
+   K err 0.00240082297987174,  B err 0.00018225703540307
+   household bond 1.61945230285599,  target bond 1.61953963697496
+Elapsed time is 43.443393 seconds.
+  Transition iter 72:
+   K err 0.00238257418758413,  B err 0.000173881078224378
+   household bond 1.61945591181863,  target bond 1.61953954964085
+Elapsed time is 43.201233 seconds.
+  Transition iter 73:
+   K err 0.0023642090947214,  B err 0.000165884919865333
+   household bond 1.61945936249027,  target bond 1.61953946600302
+Elapsed time is 41.423923 seconds.
+  Transition iter 74:
+   K err 0.0023457420707682,  B err 0.000158250341567286
+   household bond 1.6194626632395,  target bond 1.61953938589951
+Elapsed time is 42.586823 seconds.
+  Transition iter 75:
+   K err 0.00232718756177714,  B err 0.000150960529608106
+   household bond 1.61946582183212,  target bond 1.61953930917685
+Elapsed time is 43.504890 seconds.
+  Transition iter 76:
+   K err 0.00230855888498025,  B err 0.000143999724694582
+   household bond 1.61946884254868,  target bond 1.61953923568951
+Elapsed time is 43.562007 seconds.
+  Transition iter 77:
+   K err 0.00228986861368321,  B err 0.00013735233622878
+   household bond 1.61947173433663,  target bond 1.61953916529636
+Elapsed time is 41.985626 seconds.
+  Transition iter 78:
+   K err 0.00227112880784748,  B err 0.000131000777511676
+   household bond 1.61947451496895,  target bond 1.61953909786541
+Elapsed time is 42.874744 seconds.
+  Transition iter 79:
+   K err 0.00225235081456345,  B err 0.000124937931764352
+   household bond 1.61947717219571,  target bond 1.61953903328251
+Elapsed time is 43.801542 seconds.
+  Transition iter 80:
+   K err 0.00223354373448482,  B err 0.00011914947181881
+   household bond 1.61947971593357,  target bond 1.61953897142142
+Elapsed time is 42.980455 seconds.
+  Transition iter 81:
+   K err 0.00221471901786336,  B err 0.00011362323088637
+   household bond 1.6194821560136,  target bond 1.61953891216593
+Elapsed time is 43.664605 seconds.
+  Transition iter 82:
+   K err 0.00219588638098235,  B err 0.000108348144103644
+   household bond 1.6194844882258,  target bond 1.61953885540978
+Elapsed time is 43.279152 seconds.
+  Transition iter 83:
+   K err 0.00217705347154733,  B err 0.000103383920229369
+   household bond 1.61948671744175,  target bond 1.6195388010426
+Elapsed time is 44.286070 seconds.
+  Transition iter 84:
+   K err 0.00215822975694453,  B err 9.86476655793973e-05
+   household bond 1.61948885397598,  target bond 1.619538748959
+Elapsed time is 42.982641 seconds.
+  Transition iter 85:
+   K err 0.00213942404995637,  B err 9.41251917341028e-05
+   household bond 1.61949089640344,  target bond 1.61953869906401
+Elapsed time is 44.268200 seconds.
+  Transition iter 86:
+   K err 0.00212064290217498,  B err 8.98065881886346e-05
+   household bond 1.61949285030059,  target bond 1.61953865126135
+Elapsed time is 43.920573 seconds.
+  Transition iter 87:
+   K err 0.00210189396295789,  B err 8.56827285749889e-05
+   household bond 1.61949471968807,  target bond 1.61953860546039
+Elapsed time is 43.516147 seconds.
+  Transition iter 88:
+   K err 0.0020831841502785,  B err 8.1744920195571e-05
+   household bond 1.61949650827144,  target bond 1.61953856157462
+Elapsed time is 43.406250 seconds.
+  Transition iter 89:
+   K err 0.0020645200159474,  B err 7.79848413568271e-05
+   household bond 1.61949821934157,  target bond 1.61953851952132
+Elapsed time is 43.964695 seconds.
+  Transition iter 90:
+   K err 0.00204597167875514,  B err 7.43941746225831e-05
+   household bond 1.61949985611284,  target bond 1.61953847922114
+Elapsed time is 43.428749 seconds.
+  Transition iter 91:
+   K err 0.00202754959445561,  B err 7.09652368403183e-05
+   household bond 1.61950142168989,  target bond 1.61953844059803
+Elapsed time is 41.790673 seconds.
+  Transition iter 92:
+   K err 0.0020091887947698,  B err 6.76906454230847e-05
+   household bond 1.61950291909358,  target bond 1.61953840357912
+Elapsed time is 44.367209 seconds.
+  Transition iter 93:
+   K err 0.00199089449677538,  B err 6.45633607807496e-05
+   household bond 1.6195043513134,  target bond 1.61953836809464
+Elapsed time is 44.562533 seconds.
+  Transition iter 94:
+   K err 0.00197267158535848,  B err 6.15766671856509e-05
+   household bond 1.61950572122461,  target bond 1.61953833407785
+Elapsed time is 44.930361 seconds.
+  Transition iter 95:
+   K err 0.00195452464139374,  B err 5.87241766765781e-05
+   household bond 1.61950703162151,  target bond 1.619538301465
+Elapsed time is 43.819728 seconds.
+  Transition iter 96:
+   K err 0.00193645798740818,  B err 5.59997708200387e-05
+   household bond 1.61950828519499,  target bond 1.61953827019516
+Elapsed time is 44.304780 seconds.
+  Transition iter 97:
+   K err 0.00191847564801485,  B err 5.33976305496958e-05
+   household bond 1.61950948453641,  target bond 1.61953824021016
+Elapsed time is 44.451488 seconds.
+  Transition iter 98:
+   K err 0.0019005813918561,  B err 5.09124909641489e-05
+   household bond 1.61951063249617,  target bond 1.61953821145448
+Elapsed time is 45.085171 seconds.
+  Transition iter 99:
+   K err 0.00188277868136763,  B err 4.85387990303527e-05
+   household bond 1.61951173082694,  target bond 1.61953818387553
+Elapsed time is 44.208189 seconds.
+  Transition iter 100:
+   K err 0.00186507084018416,  B err 4.62845942387444e-05
+   household bond 1.61951278183862,  target bond 1.61953815742248
+Elapsed time is 44.742377 seconds.
+  Transition iter 101:
+   K err 0.00184746090911295,  B err 4.41705409241519e-05
+   household bond 1.61951378764444,  target bond 1.61953813204689
+Elapsed time is 44.202398 seconds.
+  Transition iter 102:
+   K err 0.00182995176054473,  B err 4.21503835210986e-05
+   household bond 1.61951475032598,  target bond 1.61953810770249
+Elapsed time is 43.710204 seconds.
+  Transition iter 103:
+   K err 0.0018125460359716,  B err 4.02199368629798e-05
+   household bond 1.61951567183156,  target bond 1.61953808434511
+Elapsed time is 46.441111 seconds.
+  Transition iter 104:
+   K err 0.00179524617617033,  B err 3.83751778525827e-05
+   household bond 1.61951655404294,  target bond 1.6195380619326
+Elapsed time is 47.638023 seconds.
+  Transition iter 105:
+   K err 0.00177805445612518,  B err 3.6715324774926e-05
+   household bond 1.61951739882564,  target bond 1.61953804042471
+Elapsed time is 47.549748 seconds.
+  Transition iter 106:
+   K err 0.00176097295113829,  B err 3.6150947825237e-05
+   household bond 1.61951820781959,  target bond 1.61953801978311
+Elapsed time is 46.449599 seconds.
+  Transition iter 107:
+   K err 0.00174400357291655,  B err 3.55951897690247e-05
+   household bond 1.61951898238323,  target bond 1.61953799997115
+Elapsed time is 45.599314 seconds.
+  Transition iter 108:
+   K err 0.00172714807369641,  B err 3.50481696602901e-05
+   household bond 1.61951972409748,  target bond 1.61953798095356
+Elapsed time is 47.040885 seconds.
+  Transition iter 109:
+   K err 0.00171040806072196,  B err 3.45303469668108e-05
+   household bond 1.61952043440364,  target bond 1.6195379626967
+Elapsed time is 47.635413 seconds.
+  Transition iter 110:
+   K err 0.00169378502851918,  B err 3.40200329675844e-05
+   household bond 1.61952111467311,  target bond 1.61953794516841
+Elapsed time is 47.660383 seconds.
+  Transition iter 111:
+   K err 0.0016772803079044,  B err 3.35173285906483e-05
+   household bond 1.61952176620698,  target bond 1.61953792833792
+Elapsed time is 47.127418 seconds.
+  Transition iter 112:
+   K err 0.00166089511344725,  B err 3.30223296171001e-05
+   household bond 1.61952239025178,  target bond 1.61953791217578
+Elapsed time is 45.736162 seconds.
+  Transition iter 113:
+   K err 0.00164463055542671,  B err 3.25350540522961e-05
+   household bond 1.61952298798531,  target bond 1.61953789665386
+Elapsed time is 47.012513 seconds.
+  Transition iter 114:
+   K err 0.00162848759513108,  B err 3.20555533087145e-05
+   household bond 1.6195235605403,  target bond 1.61953788174519
+Elapsed time is 46.990855 seconds.
+  Transition iter 115:
+   K err 0.00161246711020706,  B err 3.15838202098917e-05
+   household bond 1.61952410898199,  target bond 1.61953786742399
+Elapsed time is 47.886006 seconds.
+  Transition iter 116:
+   K err 0.00159656987108449,  B err 3.11198677339578e-05
+   household bond 1.61952463452023,  target bond 1.61953785366555
+Elapsed time is 47.277100 seconds.
+  Transition iter 117:
+   K err 0.00158079653864026,  B err 3.06752047286249e-05
+   household bond 1.61952513803301,  target bond 1.6195378404464
+Elapsed time is 47.964560 seconds.
+  Transition iter 118:
+   K err 0.00156514769418353,  B err 3.0241148753422e-05
+   household bond 1.61952562041588,  target bond 1.61953782774399
+Elapsed time is 47.869164 seconds.
+  Transition iter 119:
+   K err 0.00154962382844505,  B err 2.98139113231806e-05
+   household bond 1.61952608254528,  target bond 1.61953781553666
+Elapsed time is 47.274340 seconds.
+  Transition iter 120:
+   K err 0.00153422534716829,  B err 2.93934770785067e-05
+   household bond 1.61952652527095,  target bond 1.61953780380367
+Elapsed time is 46.216168 seconds.
+  Transition iter 121:
+   K err 0.00151895258506669,  B err 2.89798338910104e-05
+   household bond 1.61952694941734,  target bond 1.61953779252513
+Elapsed time is 48.577176 seconds.
+  Transition iter 122:
+   K err 0.0015038058051784,  B err 2.85729704214192e-05
+   household bond 1.61952735578727,  target bond 1.61953778168203
+Elapsed time is 48.947093 seconds.
+  Transition iter 123:
+   K err 0.00148878519209692,  B err 2.81728515035283e-05
+   household bond 1.61952774512343,  target bond 1.61953777125613
+Elapsed time is 49.218022 seconds.
+  Transition iter 124:
+   K err 0.00147389086225683,  B err 2.777943457681e-05
+   household bond 1.61952811817561,  target bond 1.61953776123
+Elapsed time is 48.602877 seconds.
+  Transition iter 125:
+   K err 0.00145912288979204,  B err 2.73926502350435e-05
+   household bond 1.61952847563048,  target bond 1.61953775158694
+Elapsed time is 48.069740 seconds.
+  Transition iter 126:
+   K err 0.00144448124444782,  B err 2.70198216656754e-05
+   household bond 1.61952881816884,  target bond 1.61953774231099
+Elapsed time is 46.223132 seconds.
+  Transition iter 127:
+   K err 0.00142996588083798,  B err 2.66566809940883e-05
+   household bond 1.6195291464258,  target bond 1.61953773338685
+Elapsed time is 47.718056 seconds.
+  Transition iter 128:
+   K err 0.0014155766780906,  B err 2.62994110195585e-05
+   household bond 1.61952946102415,  target bond 1.61953772479989
+Elapsed time is 48.581530 seconds.
+  Transition iter 129:
+   K err 0.00140131346487515,  B err 2.59479740837095e-05
+   household bond 1.61952976254222,  target bond 1.61953771653611
+Elapsed time is 48.081779 seconds.
+  Transition iter 130:
+   K err 0.00138717603094206,  B err 2.56023343070296e-05
+   household bond 1.61953005154297,  target bond 1.61953770858212
+Elapsed time is 48.055849 seconds.
+  Transition iter 131:
+   K err 0.00137316410058238,  B err 2.52624237792138e-05
+   household bond 1.61953032857081,  target bond 1.61953770092508
+Elapsed time is 47.030100 seconds.
+  Transition iter 132:
+   K err 0.00135927736745465,  B err 2.49281932704598e-05
+   household bond 1.61953059414034,  target bond 1.61953769355272

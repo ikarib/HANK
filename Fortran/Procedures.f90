@@ -472,7 +472,7 @@ END IF
 x(1) = 0.0
 x(n) = 1.0
 DO i = 2,n-1
-	x(i) = (i-1)/real(n-1)
+	x(i) = (i-1)/real(n-1,8)
 END DO
 
 z = x**(1.0/k)
@@ -570,7 +570,7 @@ CHARACTER		::lstring*80
 INTEGER			::i1
 
 WRITE(UNIT=lstring, FMT='(I5)') n2
-lstring = '('//trim(lstring) // 'F16.6)'
+lstring = '('//trim(lstring) // 'G26.15)'
 DO i1=1,n1
 	WRITE(f,lstring) (mat(i1,:))
 END DO
@@ -588,7 +588,7 @@ CHARACTER		::lstring*80
 INTEGER			::i1
 
 WRITE(UNIT=lstring, FMT='(I5)') n2
-lstring = '('//trim(lstring) // 'F20.14)'
+lstring = '('//trim(lstring) // 'G26.15)'
 DO i1=1,n1
 	WRITE(f,lstring) (mat(i1,:))
 END DO
@@ -1302,6 +1302,110 @@ subroutine coocsr ( nrow, nnz, a, ir, jc, ao, jao, iao )
 
   return
 end subroutine coocsr
+subroutine csrcoo ( nrow, job, nzmax, a, ja, ia, nnz, ao, ir, jc, ierr )
+
+!*****************************************************************************80
+!
+!! CSRCOO converts Compressed Sparse Row to Coordinate format.
+!
+!  Discussion:
+!
+!   This routine converts a matrix that is stored in row general sparse 
+!   A, JA, IA format into coordinate format AO, IR, JC. 
+!
+!  Modified:
+!
+!    07 January 2004
+!
+!  Author:
+!
+!    Youcef Saad
+!
+!  Parameters:
+!
+!    Input, integer ( kind = 4 ) NROW, the row dimension of the matrix.
+!
+! job   = integer ( kind = 4 ) serving as a job indicator.
+!         if job = 1 fill in only the array ir, ignore jc, and ao.
+!         if job = 2 fill in ir, and jc but not ao
+!         if job = 3 fill in everything.
+!         The reason why these options are provided is that on return
+!         ao and jc are the same as a, ja. So when job = 3, a and ja are
+!         simply copied into ao, jc.  When job=2, only jc and ir are
+!         returned. With job=1 only the array ir is returned. Moreover,
+!         the algorithm is in place:
+!           call csrcoo (nrow,1,nzmax,a,ja,ia,nnz,a,ia,ja,ierr)
+!         will write the output matrix in coordinate format on a, ja,ia.
+!         (Important: note the order in the output arrays a, ja, ia. )
+!         i.e., ao can be the same as a, ir can be the same as ia
+!         and jc can be the same as ja.
+!
+!    Input, real A(*), integer ( kind = 4 ) JA(*), IA(NROW+1), the matrix in CSR
+!    Compressed Sparse Row format.
+!
+! nzmax = length of space available in ao, ir, jc.
+!         the code will stop immediatly if the number of
+!         nonzero elements found in input matrix exceeds nzmax.
+!
+! on return:
+!-
+! ao, ir, jc = matrix in coordinate format.
+!
+! nnz        = number of nonzero elements in matrix.
+!
+! ierr       = integer ( kind = 4 ) error indicator.
+!         ierr == 0 means normal retur
+!         ierr == 1 means that the the code stopped
+!         because there was no space in ao, ir, jc
+!         (according to the value of  nzmax).
+!
+  implicit none
+
+  integer ( kind = 4 ) nrow
+
+  real ( kind = 8 ) a(*)
+  real ( kind = 8 ) ao(*)
+  integer ( kind = 4 ) i
+  integer ( kind = 4 ) ia(nrow+1)
+  integer ( kind = 4 ) ierr
+  integer ( kind = 4 ) ir(*)
+  integer ( kind = 4 ) ja(*)
+  integer ( kind = 4 ) jc(*)
+  integer ( kind = 4 ) job
+  integer ( kind = 4 ) k
+  integer ( kind = 4 ) k1
+  integer ( kind = 4 ) k2
+  integer ( kind = 4 ) nnz
+  integer ( kind = 4 ) nzmax
+
+  ierr = 0
+  nnz = ia(nrow+1)-1
+
+  if ( nzmax < nnz ) then
+    ierr = 1
+    return
+  end if
+
+  if ( 3 <= job ) then
+    ao(1:nnz) = a(1:nnz)
+  end if
+
+  if ( 2 <= job ) then
+    jc(1:nnz) = ja(1:nnz)
+  end if
+!
+!  Copy backward.
+!
+  do i = nrow, 1, -1
+    k1 = ia(i+1) - 1
+    k2 = ia(i)
+    do k = k1, k2, -1
+      ir(k) = i
+    end do
+  end do
+
+  return
+end
 subroutine diapos ( n, ja, ia, idiag )
 
 !*****************************************************************************80

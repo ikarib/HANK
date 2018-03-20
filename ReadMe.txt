@@ -52,15 +52,15 @@ STEP 3.1: Run MakePlotsPaper.m to make the following figures 1a, 1b, 2a, 2b, 3a,
 STEP 3.2: Run Decomposition.m to get the values for Tables 6 and 7. Each column of these tables refers to a different version of the model. To produce the values for the baseline (Table 6, Column 1), put the path to the Fortran output in line 6. The values for the table are contained in the variable 'finaltable', and will display automatically.
 
 To produce the output for each of the remaining columns of Table 6 and Table 7, you need to re-run the Fortran code with a different set of parameter values, store the output in a folder, and then re-run Decomposition.m with the variable InputDir on line 6 pointing to the relevant folder. For each version of the model, all the changes that need to be made to the Fortran code are contained in the file SetParameters.f90. They are as follows:
- Table 6, Column 2: Set profdistfrac = 1.0 on line 66
- Table 6, Column 3: Set profdistfrac = 0.1 on line 66
- Table 6, Column 4: Set theta = 50.0 on line 179
- Table 6, Column 5: Set phitaylor = 2.0 on line 180
- Table 6, Column 6: Set frisch = 0.5 on line 255 and set rho = 0.0133348071 on line 143
+--removed?-- Table 6, Column 2: Set profdistfrac = 1.0 on line 66
+--removed?-- Table 6, Column 3: Set profdistfrac = 0.1 on line 66
  Table 7, Column 1: Same as baseline
  Table 7, Column 2: Set AdjGovBudgetConstraint = 1 on line 71
  Table 7, Column 3: Set AdjGovBudgetConstraint = 4 on line 71
- Table 7, Column 4: Set AdjGovBudgetConstraint = 3 on line 71
+--removed?-- Table 7, Column 4: Set AdjGovBudgetConstraint = 3 on line 71
+ Table 7, Column 4: Set theta = 50.0 on line 179
+ Table 7, Column 5: Set phitaylor = 2.0 on line 180
+ Table 7, Column 6: Set frisch = 0.5 on line 255 and set rho = 0.0133348071 on line 143
  
 STEP 3.3: Run ConDecompDist.m to make the following figures 5a, 5b, 6a, 6b.  You need to change line 7 to the path to the directory where the Fortran output is stored and line 8 to the path to the directory where you want to store the figures.
 

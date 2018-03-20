@@ -21,9 +21,6 @@ cumdeltatrans(1) = deltatransvec(1)
 DO it = 2,Ttransition
 	cumdeltatrans(it) = cumdeltatrans(it-1) + deltatransvec(it)
 END DO
-OPEN(3, FILE = trim(OutputDir) // 'deltatransvec.txt', STATUS = 'replace'); CALL WriteMatrix(3,Ttransition,1,deltatransvec)
-
-
 
 !Monetary policy shock
 IF(IncludeMonetaryShock==1) THEN

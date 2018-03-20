@@ -19,6 +19,12 @@ ldiffKN = 1.0
 IF(OneAssetNoCapital==0) THEN
 	DO WHILE (neqmiter<=maxiterequmss .and. ldiffKN>tolequmss )
 
+OPEN(3, FILE = trim(OutputDir) // 'ss.dat')
+READ(3,'(I3)') neqmiter
+READ(3,'(G26.15)') wage,netwage,profit,ra,KNratio,KYratio
+READ(3,'(2000G26.15)') V
+READ(3,'(2000G26.15)') gmat
+CLOSE(3)
 		IF (Display>=2) THEN
 			WRITE(*,*) '*******************************************'
 			WRITE(*,*) ' ITERATION : 			',neqmiter
@@ -34,8 +40,6 @@ IF(OneAssetNoCapital==0) THEN
 		CALL IterateBellman
 		CALL StationaryDistribution
 		CALL DistributionStatistics
-
-
 
 		IF(DividendFundLumpSum==0) capital = Ea/(1.0-fundlev)
 		IF(DividendFundLumpSum==1) THEN

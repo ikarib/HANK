@@ -3,7 +3,7 @@ clear all;clc;
 %% Parameters
 
 %path to folder containing output directories
-BaseOutputDir = '~/FortranOutputDir/';
+BaseOutputDir = '../FortranOutputDir/';
 
 %list of output directories to process
 explist{1} = 'BaselineOutputSubdir';

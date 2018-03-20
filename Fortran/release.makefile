@@ -1,6 +1,6 @@
 FC = ifort
-FCFLAGS = -m64 -traceback -O3 -qopenmp -implicitnone  -Wl,-stack_size,0x100000000 -L/Volumes/FILES/Projects/Fortran/SuiteSparse/lib -lumfpack -lamd -lcholmod -lcolamd -lsuitesparseconfig -lblas 
-LDFLAFS = -m64 -traceback -O3 -qopenmp -implicitnone  -Wl,-stack_size,0x100000000 -L/Volumes/FILES/Projects/Fortran/SuiteSparse/lib -lumfpack -lamd -lcholmod -lcolamd -lsuitesparseconfig -lblas 
+FCFLAGS = -m64 -traceback -O3 -implicitnone  -L/home/int/kais/SuiteSparse/lib -lumfpack -lamd -lcholmod -lcolamd -lsuitesparseconfig -lblas -fpconstant
+LDFLAFS = -m64 -traceback -O3 -qopenmp -implicitnone  -Wl,-stack_size,0x100000000 -L/home/int/kais/SuiteSparse/lib -lumfpack -lamd -lcholmod -lcolamd -lsuitesparseconfig -lblas 
 # -O3
 
 PROG = $(OUT)
@@ -12,9 +12,11 @@ SUBR = 	AllocateArrays.o SetParameters.o Grids.o IterateBellman.o HJBUpdate.o cu
 
 OBJ = $(MOD) $(SUBR)
 
-$(PROG).out: $(OBJ) Main.o
+#$(PROG).out: $(OBJ) Main.o
+#	$(FC) $(FCFLAGS) -o $@ $^ $(LDFLAGS)
+Main: $(MOD) $(SUBR) Main.o
 	$(FC) $(FCFLAGS) -o $@ $^ $(LDFLAGS)
-Main.o: $(MOD)
+#	./Main
 
 %: %.o
 	$(FC) $(FCFLAGS) -o $@ $^ $(LDFLAGS)

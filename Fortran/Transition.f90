@@ -1,11 +1,11 @@
-SUBROUTINE Transition
+SUBROUTINE Transition(ii)
 
 USE Parameters
 USE Globals
 USE Procedures
 
 IMPLICIT NONE
-
+INTEGER, INTENT(IN) :: ii
 INTEGER						:: it,iw(nab),iaby,ia,ib,iy,iab
 REAL(8), DIMENSION(nab) 	:: ldavec,ldbvec,ldiag
 REAL(8) 					:: ltau,ltau0
@@ -15,6 +15,7 @@ REAL(8) 					:: lbgrid(ngpb,Ttransition),lbmin,holdbgrid(ngpb)
 REAL(8), DIMENSION(nab,ngpy) 	:: lgmat,lgmat1
 REAL(8), DIMENSION(ngpa,ngpb,ngpy) 	:: lgjoint
 REAL(8), DIMENSION(ngpy,ngpy) 	:: leye,lmat
+CHARACTER	:: lstring*80
 
 !identity matrix
 leye = 0.0; DO iy = 1,ngpy
@@ -96,7 +97,15 @@ DO it = Ttransition,1,-1
 	END IF
 
 	delta = deltatransvec(it)
+!WRITE(UNIT=lstring, FMT='(I3,I3)') ii,it
+!OPEN(3, FILE = trim(OutputDir) // 'V '// trim(lstring) // '.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,nab,ngpy,reshape(V,(/nab,ngpy/))) 
+!OPEN(3, FILE = trim(OutputDir) // 'adrift '// trim(lstring) // '.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,ngpa,1,adrift)
+!OPEN(3, FILE = trim(OutputDir) // 'bdrift '// trim(lstring) // '.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,ngpb,1,bdrift)
+!OPEN(3, FILE = trim(OutputDir) // 'netwage '// trim(lstring) // '.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,1,7,(/netwage,lumptransfer,labtax,profit,meanlabeff,delta,ra/))
 	CALL HJBUpdate
+!OPEN(3, FILE = trim(OutputDir) // 'Vnew '// trim(lstring) // '.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,nab,ngpy,reshape(Vnew,(/nab,ngpy/))) 
 ! 	
 ! 	!store value functions and A matrix
 	solnTRANS(it)%V = Vnew
@@ -124,7 +133,6 @@ DO it = Ttransition,1,-1
 	solnTRANS(it)%A = ACSR
 	solnTRANS(it)%AU = AUCSR
 	
-		
 END DO
 
 !simulate forward
@@ -161,7 +169,6 @@ DO it = 1,Ttransition
 		AUMF(iy) = tCSR_di(solnTRANS(it)%B(iy)%row-1,solnTRANS(it)%B(iy)%col-1,solnTRANS(it)%B(iy)%val) 	
 	END DO
 	!$OMP END PARALLEL DO
-	
 	IF(it==1 .and. (DividendFundLumpSum==0 .or. OneAssetNoCapital==1)) lgmat = solnINITSS%gmat
 	IF(it==1 .and. DividendFundLumpSum==1 .and. OneAssetNoCapital==0) THEN
 		
@@ -198,6 +205,9 @@ DO it = 1,Ttransition
 		
 	END DO
 	!$OMP END PARALLEL DO
+!WRITE(UNIT=lstring, FMT='(I3,I3)') ii,it
+!OPEN(3, FILE = trim(OutputDir) // 'gmat '// trim(lstring) // '.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,nab,ngpy,reshape(lgmat1,(/nab,ngpy/))) 
 	
 	solnTRANS(it)%gmat = lgmat1
 	
@@ -287,7 +297,6 @@ DO it = 1,Ttransition
 										Ea_nwQ,Eb_nwQ,Ec_nwQ,Einc_nwQ,Ea_incQ,Eb_incQ,Ec_incQ,Einc_incQ,Ec_bN,Ec_b0close,Ec_b0far)
 
 END DO
-
 END SUBROUTINE Transition
 
 

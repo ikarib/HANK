@@ -9,6 +9,7 @@ IMPLICIT NONE
 INTEGER 	:: it,ii,itfg
 REAL(8) 	:: lldK,ldiffB,ldiffK,lminmargcost,lpvgovbc,lpvlumpincr,linitlumpincr
 REAL(8), DIMENSION(Ttransition) :: lcapital,lcapital1,lbond,lfirmdiscount,lrb,lrb1,lfundbond,lworldbond,lrgov
+CHARACTER	:: lstring*80
 
 iteratingtransition = .true.
 
@@ -199,12 +200,22 @@ ii = 1
 ldiffK = 1.0
 ldiffB = 1.0
 DO WHILE (ii<=maxitertranssticky .and. max(ldiffK,ldiffB)>toltransition )
+
+WRITE(UNIT=lstring, FMT='(I4)') ii
+OPEN(3, FILE = trim(OutputDir) // 'capital' // trim(lstring) // '.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,1,Ttransition,equmTRANS(:).capital)
+OPEN(3, FILE = trim(OutputDir) // 'labor' // trim(lstring) // '.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,1,Ttransition,equmTRANS(:)%labor)
+OPEN(3, FILE = trim(OutputDir) // 'mc' // trim(lstring) // '.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,1,Ttransition,equmTRANS(:)%mc)
+OPEN(3, FILE = trim(OutputDir) // 'ra' // trim(lstring) // '.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,1,Ttransition,equmTRANS(:).ra)
+OPEN(3, FILE = trim(OutputDir) // 'rb' // trim(lstring) // '.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,1,Ttransition,equmTRANS(:).rb)
+OPEN(3, FILE = trim(OutputDir) // 'pi' // trim(lstring) // '.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,1,Ttransition,equmTRANS(:).pi)
 	!solve for transtion
-	CALL Transition
+	CALL Transition(ii)
 	
 	!computed implied equilibrium quantities
 	lbond = statsTRANS(:)%Eb
 	lcapital = (statsTRANS(:)%Ea - equmTRANS(:)%equity)/ (1.0 - equmTRANS(:)%fundlev)
+OPEN(3, FILE = trim(OutputDir) // 'lbond' // trim(lstring) // '.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,1,Ttransition,lbond)
+OPEN(3, FILE = trim(OutputDir) // 'lcapital' // trim(lstring) // '.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,1,Ttransition,lcapital)
 	IF(ConvergenceRelToOutput==0) THEN
 		ldiffK= maxval(abs(lcapital/equmTRANS(:)%capital - 1.0))
 		ldiffB= maxval(abs(lbond/equmTRANS(:)%bond - 1.0))
@@ -213,9 +224,9 @@ DO WHILE (ii<=maxitertranssticky .and. max(ldiffK,ldiffB)>toltransition )
 		ldiffB= maxval(abs(lbond-equmTRANS(:)%bond)/equmINITSS%output)
 	END IF
 	IF (Display>=1) write(*,"(A,I,A)") '  Transition iter ',ii, ':'
-	IF (Display>=1) write(*,"(A,E10.3,A,E10.3,A,E10.3)") '   K err',ldiffK, ',  B err',ldiffB
+	IF (Display>=1) write(*,"(A,G26.15,A,G26.15,A,G26.15)") '   K err',ldiffK, ',  B err',ldiffB
 	IF (Display>=1) write(*,*) '   household bond',lbond(2), ',  target bond',equmTRANS(2)%bond
-	
+
 	!update capital and interest rate
 	IF (ii<maxitertranssticky .and. max(ldiffK,ldiffB)>toltransition ) THEN
 		CALL PartialUpdate(Ttransition-1,stepstickytransK,equmTRANS(2:Ttransition)%capital,lcapital(2:Ttransition),lcapital1(2:Ttransition))

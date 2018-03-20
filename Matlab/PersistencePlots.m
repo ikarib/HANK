@@ -3,7 +3,7 @@ clear;
 close all;
 
 %% DIRECTORY PATHS
-lSaveDir =  '~/FiguresDir'; 
+lSaveDir =  '../FiguresDir'; 
 
 % T adjusts
 InputDirT{1} = '~/FortranOutputDir/T_pers05';

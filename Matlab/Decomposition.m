@@ -3,7 +3,7 @@ clear;
 close all;
 
 %% PARAMETERS
-InputDir = '~/FortranOutputDir/BaselineOutputSubdir/'; %path to fortran output
+InputDir = '../FortranOutputDir/BaselineOutputSubdir/'; %path to fortran output
 
 nexp = 15;
 

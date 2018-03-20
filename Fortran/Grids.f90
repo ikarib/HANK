@@ -32,9 +32,10 @@ ELSE IF (ReadEarningsProcess==1) THEN
 	IF (AdjustProdGridFrisch==1) logygrid = logygrid/ (1.0+adjfricshgridfrac*frisch)
 	ygrid = exp(logygrid)
 	ymarkov = TRANSPOSE(ymarkov) !since fortran reads in column major order	
-	!fix up rounding in markov matrix
+	!fix up rounding in markov matrix and ergodic distribution
 	DO iy = 1,ngpy
 		ymarkov(iy,iy) = ymarkov(iy,iy) - SUM(ymarkov(iy,:))
+!		ydist(iy) = ydist(iy) / SUM(ydist)
 	END DO
 	
 ELSE IF (TwoPointWageProcess==1) THEN
