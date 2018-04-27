@@ -1,7 +1,7 @@
 FC = ifort
-FCFLAGS = -m64 -traceback -O3 -qopenmp -implicitnone  -L/home/int/kais/SuiteSparse/lib -lumfpack -lamd -lcholmod -lcolamd -lsuitesparseconfig -lblas -fpconstant
-LDFLAFS = -m64 -traceback -O3 -qopenmp -implicitnone  -Wl,-stack_size,0x100000000 -L/home/int/kais/SuiteSparse/lib -lumfpack -lamd -lcholmod -lcolamd -lsuitesparseconfig -lblas 
-# -O3
+FCFLAGS = -m64 -traceback -O3 -qopenmp -implicitnone  -Wl,-stack_size,0x100000000 -L/usr/local/lib -lumfpack -lamd -lcholmod -lcolamd -lsuitesparseconfig -lblas
+LDFLAGS = -m64 -traceback -O3 -qopenmp -implicitnone  -Wl,-stack_size,0x100000000 -L/usr/local/lib -lumfpack -lamd -lcholmod -lcolamd -lsuitesparseconfig -lblas -Wl,-rpath,/opt/intel/mkl/lib -liomp5 -lpthread
+# -lm -ldl 
 
 PROG = $(OUT)
 
@@ -12,13 +12,8 @@ SUBR = 	AllocateArrays.o SetParameters.o Grids.o IterateBellman.o HJBUpdate.o cu
 
 OBJ = $(MOD) $(SUBR)
 
-#$(PROG).out: $(OBJ) Main.o
-#	$(FC) $(FCFLAGS) -o $@ $^ $(LDFLAGS)
-Main: $(MOD) $(SUBR) Main.o
-	$(FC) $(FCFLAGS) -o $@ $^ $(LDFLAGS)
-
-%: %.o
-	$(FC) $(FCFLAGS) -o $@ $^ $(LDFLAGS)
+Main: $(OBJ) Main.o
+	$(FC) $(LDFLAGS) -o $@ $^
 
 %.o: %.f90
 	$(FC) $(FCFLAGS) -c $<

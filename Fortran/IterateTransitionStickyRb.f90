@@ -33,9 +33,9 @@ END DO
 equmTRANS(:)%pi = equmINITSS%pi
 
 !load previous solution
-OPEN(3, FILE = trim(OutputDir) // 'sol.dat', STATUS = 'OLD'); 
-READ(3,'(200G26.15)') equmTRANS(:)%capital,equmTRANS(:)%labor,equmTRANS(:)%pi,equmTRANS(:)%ra
-CLOSE(3)
+!OPEN(3, FILE = trim(OutputDir) // '../sol.dat', STATUS = 'OLD'); 
+!READ(3,'(200G26.15)') equmTRANS(:)%capital,equmTRANS(:)%labor,equmTRANS(:)%pi,equmTRANS(:)%ra
+!CLOSE(3)
 
 IF(forwardguide==.false.) THEN
 	equmTRANS(:)%rnom = equmINITSS%rnom +phitaylor*equmTRANS(:)%pi + equmTRANS(:)%mpshock
@@ -204,10 +204,10 @@ ldiffK = 1.0
 ldiffB = 1.0
 DO WHILE (ii<=maxitertranssticky .and. max(ldiffK,ldiffB)>toltransition )
 !save current solution
-!WRITE(UNIT=lstring, FMT='(I4)') ii
-!OPEN(3, FILE = trim(OutputDir) // 'sol' // trim(lstring) // '.txt', STATUS = 'REPLACE'); 
-!WRITE(3,'(200E26.15E3)') equmTRANS(:)%borrwedge,equmTRANS(:)%fundlev,equmTRANS(:)%elast,equmTRANS(:)%tfp,equmTRANS(:)%caputil,equmTRANS(:)%labor,equmTRANS(:)%labtax,equmTRANS(:)%ra,equmTRANS(:)%mpshock,equmTRANS(:)%capital,equmTRANS(:)%pi,equmTRANS(:)%rnom,equmTRANS(:)%rb,equmTRANS(:)%rborr,equmTRANS(:)%worldbond,equmTRANS(:)%fundbond,equmTRANS(:)%mc,equmTRANS(:)%gap,equmTRANS(:)%tfpadj,equmTRANS(:)%KNratio,equmTRANS(:)%wage,equmTRANS(:)%netwage,equmTRANS(:)%output,equmTRANS(:)%KYratio,equmTRANS(:)%rcapital,equmTRANS(:)%priceadjust,equmTRANS(:)%profit,equmTRANS(:)%deprec,equmTRANS(:)%investment,equmTRANS(:)%dividend,equmTRANS(:)%divrate,equmTRANS(:)%equity,equmTRANS(:)%illassetdrop,equmTRANS(:)%govbond,equmTRANS(:)%govexp,equmTRANS(:)%taxrev,equmTRANS(:)%lumptransfer,equmTRANS(:)%bond
-!CLOSE(3)
+WRITE(UNIT=lstring, FMT='(I4)') ii
+OPEN(3, FILE = trim(OutputDir) // 'sol' // trim(lstring) // '.txt', STATUS = 'REPLACE'); 
+WRITE(3,'(200E26.15E3)') equmTRANS(:)%borrwedge,equmTRANS(:)%fundlev,equmTRANS(:)%elast,equmTRANS(:)%tfp,equmTRANS(:)%caputil,equmTRANS(:)%labor,equmTRANS(:)%labtax,equmTRANS(:)%ra,equmTRANS(:)%mpshock,equmTRANS(:)%capital,equmTRANS(:)%pi,equmTRANS(:)%rnom,equmTRANS(:)%rb,equmTRANS(:)%rborr,equmTRANS(:)%worldbond,equmTRANS(:)%fundbond,equmTRANS(:)%mc,equmTRANS(:)%gap,equmTRANS(:)%tfpadj,equmTRANS(:)%KNratio,equmTRANS(:)%wage,equmTRANS(:)%netwage,equmTRANS(:)%output,equmTRANS(:)%KYratio,equmTRANS(:)%rcapital,equmTRANS(:)%priceadjust,equmTRANS(:)%profit,equmTRANS(:)%deprec,equmTRANS(:)%investment,equmTRANS(:)%dividend,equmTRANS(:)%divrate,equmTRANS(:)%equity,equmTRANS(:)%illassetdrop,equmTRANS(:)%govbond,equmTRANS(:)%govexp,equmTRANS(:)%taxrev,equmTRANS(:)%lumptransfer,equmTRANS(:)%bond
+CLOSE(3)
 
 !WRITE(UNIT=lstring, FMT='(I4)') ii
 !OPEN(3, FILE = trim(OutputDir) // 'capital' // trim(lstring) // '.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,1,Ttransition,equmTRANS(:).capital)
