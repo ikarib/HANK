@@ -1,9 +1,6 @@
 FC = ifort
-FCFLAGS = -m64 -traceback -O3 -qopenmp -implicitnone  -Wl,-stack_size,0x100000000 -L/usr/local/lib -lumfpack -lamd -lcholmod -lcolamd -lsuitesparseconfig -lblas
-LDFLAGS = -m64 -traceback -O3 -qopenmp -implicitnone  -Wl,-stack_size,0x100000000 -L/usr/local/lib -lumfpack -lamd -lcholmod -lcolamd -lsuitesparseconfig -lblas -Wl,-rpath,/opt/intel/mkl/lib -liomp5 -lpthread
-# -lm -ldl 
-
-PROG = $(OUT)
+FCFLAGS = -O3 -qopenmp
+LDFLAGS = -qopenmp -Wl,-stack_size,0x100000000 -lumfpack
 
 MOD = Parameters.o Globals.o umfpack.o Procedures.o 
 
