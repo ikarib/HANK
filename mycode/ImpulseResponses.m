@@ -1,5 +1,4 @@
-% allocate arrays
-AllocateArrays
+global deltatransvec
 
 stickytransition = false;
 
@@ -7,15 +6,13 @@ stickytransition = false;
 deltatransvec = PowerSpacedGrid(Ttransition,deltatransparam,deltatransmin,deltatransmax);
 cumdeltatrans = cumsum(deltatransvec);
 
-% equmTRANS = equmINITSS;
+equmTRANS = struct;
 equmTRANS.borrwedge = equmINITSS.borrwedge;
-equmTRANS.fundlev = repmat(equmINITSS.fundlev,1,Ttransition);
-equmTRANS.elast = repmat(equmINITSS.elast,1,Ttransition);
-equmTRANS.tfp = repmat(equmINITSS.tfp,1,Ttransition);
-equmTRANS.caputil = repmat(equmINITSS.caputil,1,Ttransition);
-equmTRANS.labor = repmat(equmINITSS.labor,1,Ttransition);
+equmTRANS.fundlev = equmINITSS.fundlev;
+equmTRANS.elast = equmINITSS.elast;
+equmTRANS.tfp = equmINITSS.tfp;
+equmTRANS.caputil = equmINITSS.caputil;
 equmTRANS.labtax = equmINITSS.labtax;
-equmTRANS.ra = equmINITSS.ra;
 
 nendtrans = min(50,Ttransition);
 irfstruct = struct;

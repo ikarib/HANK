@@ -27,7 +27,7 @@ INITSS.wealtheff1ass = effect(mpc,badj);
 if Display>1; fprintf('Wealth effect 2 asset:\n'); end
 INITSS.wealtheff2ass = effect(effdisc,badj);
 
-function f = effect(disc,rhs)
+function lvec = effect(disc,rhs)
     global nab ngpa ngpb ngpy MonetaryShockPers rho rb ymarkovoff ymarkovdiag
     maxiter_discMPC = 50;
     discMPCtol = 1e-10;
@@ -38,23 +38,23 @@ function f = effect(disc,rhs)
     rhs = reshape(rhs,nab,ngpy);
     % initialize iterations without y transitions
     B = [sum(AU,2)+eta+rho-rb+disc -AU];
-    f = rhs;
-    parfor iy=1:ngpy
-        f(:,iy) = spdiags(B(:,:,iy),[0 -1 1 -ngpa ngpa],nab,nab)'\f(:,iy);
+    lvec = rhs;
+    for iy=1:ngpy %par
+        lvec(:,iy) = spdiags(B(:,:,iy),[0 -1 1 -ngpa ngpa],nab,nab)'\lvec(:,iy);
     end
     B = [sum(AU,2)+eta+rho-rb+disc-ymarkovdiag -AU];
     % iterate to convergence
     for it = 1:maxiter_discMPC
-        f1 = f;
-        f = rhs + f*ymarkovoff';
-        parfor iy = 1:ngpy
-            f(:,iy) = spdiags(B(:,:,iy),[0 -1 1 -ngpa ngpa],nab,nab)'\f(:,iy);
+        f1 = lvec;
+        lvec = rhs + lvec*ymarkovoff';
+        for iy = 1:ngpy %par
+            lvec(:,iy) = spdiags(B(:,:,iy),[0 -1 1 -ngpa ngpa],nab,nab)'\lvec(:,iy);
         end
-        ldiff = max(max(abs(f-f1)));
+        ldiff = max(max(abs(lvec-f1)));
         if Display>1; fprintf('iteration %d max change: %g\n',it,ldiff); end
         if ldiff<discMPCtol; break; end
     end
-    f = reshape(f,ngpa,ngpb,ngpy);
+    lvec = reshape(lvec,ngpa,ngpb,ngpy);
 end
 
 end

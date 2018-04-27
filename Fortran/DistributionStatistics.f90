@@ -113,6 +113,54 @@ IF ((iteratingtransition==.false.) .and. (calibrating==.false.) ) THEN
 	linc_nw = lnw(orderinc)
 	CALL CUMSUM(lincmargdist*lincdelta,lincmargcum)
 	
+!OPEN(3, FILE = trim(OutputDir) // 'gamarg.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,ngpa,ngpy,gamarg)
+!OPEN(3, FILE = trim(OutputDir) // 'gbmarg.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,ngpb,ngpy,gbmarg)
+!OPEN(3, FILE = trim(OutputDir) // 'gabmarg.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,ngpa,ngpb,gabmarg)
+!OPEN(3, FILE = trim(OutputDir) // 'gabcum.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,ngpa,ngpb,gabcum) 
+!OPEN(3, FILE = trim(OutputDir) // 'lmargdist.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,1,naby,lmargdist)
+!OPEN(3, FILE = trim(OutputDir) // 'lnw_a.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,1,nab,lnw_a)
+!OPEN(3, FILE = trim(OutputDir) // 'lnw_b.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,1,nab,lnw_b)
+!OPEN(3, FILE = trim(OutputDir) // 'lnw_c.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,1,nab,lnw_c)
+!OPEN(3, FILE = trim(OutputDir) // 'lnw_h.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,1,nab,lnw_h)
+!OPEN(3, FILE = trim(OutputDir) // 'lnw_inc.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,1,nab,lnw_inc)
+!OPEN(3, FILE = trim(OutputDir) // 'lnwmargcum.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,1,nab,lnwmargcum)
+!OPEN(3, FILE = trim(OutputDir) // 'lcgrid.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,1,naby,lcgrid)
+!OPEN(3, FILE = trim(OutputDir) // 'lcmargdist.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,1,naby,lcmargdist)
+!OPEN(3, FILE = trim(OutputDir) // 'lcdelta.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,1,naby,lcdelta)
+!OPEN(3, FILE = trim(OutputDir) // 'lcmargcum.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,1,naby,lcmargcum)
+!OPEN(3, FILE = trim(OutputDir) // 'lincgrid.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,1,naby,lincgrid)
+!OPEN(3, FILE = trim(OutputDir) // 'lincdelta.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,1,naby,lincdelta)
+!OPEN(3, FILE = trim(OutputDir) // 'linc_a.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,1,naby,linc_a)
+!OPEN(3, FILE = trim(OutputDir) // 'linc_b.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,1,naby,linc_b)
+!OPEN(3, FILE = trim(OutputDir) // 'linc_c.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,1,naby,linc_c)
+!OPEN(3, FILE = trim(OutputDir) // 'linc_h.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,1,naby,linc_h)
+!OPEN(3, FILE = trim(OutputDir) // 'linc_nw.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,1,naby,linc_nw)
+!OPEN(3, FILE = trim(OutputDir) // 'lincmargcum.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,1,naby,lincmargcum)
+!OPEN(3, FILE = trim(OutputDir) // 'E.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,8,4,transpose(reshape((/Ea_nwQ,Eb_nwQ,Ec_nwQ,Einc_nwQ,Ea_incQ,Eb_incQ,Ec_incQ,Einc_incQ/),(/4,8/))))
 END IF
 
 !means
@@ -274,54 +322,5 @@ IF ((iteratingtransition==.false.) .and. (calibrating==.false.) .and. (ngpy>1 .o
 
 END IF
 
-!OPEN(3, FILE = trim(OutputDir) // 'gamarg.txt', STATUS = 'replace'); 
-!CALL WriteMatrix(3,ngpa,ngpy,gamarg)
-!OPEN(3, FILE = trim(OutputDir) // 'gbmarg.txt', STATUS = 'replace'); 
-!CALL WriteMatrix(3,ngpb,ngpy,gbmarg)
-!OPEN(3, FILE = trim(OutputDir) // 'gabmarg.txt', STATUS = 'replace'); 
-!CALL WriteMatrix(3,ngpa,ngpb,gabmarg)
-!OPEN(3, FILE = trim(OutputDir) // 'gabcum.txt', STATUS = 'replace'); 
-!CALL WriteMatrix(3,ngpa,ngpb,gabcum) 
-!OPEN(3, FILE = trim(OutputDir) // 'lmargdist.txt', STATUS = 'replace'); 
-!CALL WriteMatrix(3,1,naby,lmargdist)
-!OPEN(3, FILE = trim(OutputDir) // 'lnw_a.txt', STATUS = 'replace'); 
-!CALL WriteMatrix(3,1,nab,lnw_a)
-!OPEN(3, FILE = trim(OutputDir) // 'lnw_b.txt', STATUS = 'replace'); 
-!CALL WriteMatrix(3,1,nab,lnw_b)
-!OPEN(3, FILE = trim(OutputDir) // 'lnw_c.txt', STATUS = 'replace'); 
-!CALL WriteMatrix(3,1,nab,lnw_c)
-!OPEN(3, FILE = trim(OutputDir) // 'lnw_h.txt', STATUS = 'replace'); 
-!CALL WriteMatrix(3,1,nab,lnw_h)
-!OPEN(3, FILE = trim(OutputDir) // 'lnw_inc.txt', STATUS = 'replace'); 
-!CALL WriteMatrix(3,1,nab,lnw_inc)
-!OPEN(3, FILE = trim(OutputDir) // 'lnwmargcum.txt', STATUS = 'replace'); 
-!CALL WriteMatrix(3,1,nab,lnwmargcum)
-!OPEN(3, FILE = trim(OutputDir) // 'lcgrid.txt', STATUS = 'replace'); 
-!CALL WriteMatrix(3,1,naby,lcgrid)
-!OPEN(3, FILE = trim(OutputDir) // 'lcmargdist.txt', STATUS = 'replace'); 
-!CALL WriteMatrix(3,1,naby,lcmargdist)
-!OPEN(3, FILE = trim(OutputDir) // 'lcdelta.txt', STATUS = 'replace'); 
-!CALL WriteMatrix(3,1,naby,lcdelta)
-!OPEN(3, FILE = trim(OutputDir) // 'lcmargcum.txt', STATUS = 'replace'); 
-!CALL WriteMatrix(3,1,naby,lcmargcum)
-!OPEN(3, FILE = trim(OutputDir) // 'lincgrid.txt', STATUS = 'replace'); 
-!CALL WriteMatrix(3,1,naby,lincgrid)
-!OPEN(3, FILE = trim(OutputDir) // 'lincdelta.txt', STATUS = 'replace'); 
-!CALL WriteMatrix(3,1,naby,lincdelta)
-!OPEN(3, FILE = trim(OutputDir) // 'linc_a.txt', STATUS = 'replace'); 
-!CALL WriteMatrix(3,1,naby,linc_a)
-!OPEN(3, FILE = trim(OutputDir) // 'linc_b.txt', STATUS = 'replace'); 
-!CALL WriteMatrix(3,1,naby,linc_b)
-!OPEN(3, FILE = trim(OutputDir) // 'linc_c.txt', STATUS = 'replace'); 
-!CALL WriteMatrix(3,1,naby,linc_c)
-!OPEN(3, FILE = trim(OutputDir) // 'linc_h.txt', STATUS = 'replace'); 
-!CALL WriteMatrix(3,1,naby,linc_h)
-!OPEN(3, FILE = trim(OutputDir) // 'linc_nw.txt', STATUS = 'replace'); 
-!CALL WriteMatrix(3,1,naby,linc_nw)
-!OPEN(3, FILE = trim(OutputDir) // 'lincmargcum.txt', STATUS = 'replace'); 
-!CALL WriteMatrix(3,1,naby,lincmargcum)
-!OPEN(3, FILE = trim(OutputDir) // 'E.txt', STATUS = 'replace'); 
-!CALL WriteMatrix(3,8,4,transpose(reshape((/Ea_nwQ,Eb_nwQ,Ec_nwQ,Einc_nwQ,Ea_incQ,Eb_incQ,Ec_incQ,Einc_incQ/),(/4,8/))))
-!CALL EXIT(0)
 
 END SUBROUTINE DistributionStatistics

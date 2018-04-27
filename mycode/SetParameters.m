@@ -1,9 +1,9 @@
 %% Parameters
-global LaborSupply chi frisch prefshock ScaleDisutilityIdio ImposeMaxHours ngpy ngpb ngpa nab
+global LaborSupply chi frisch prefshock ScaleDisutilityIdio ImposeMaxHours ngpy ngpb ngpa nab Ttransition
 global kappa0_w kappa1_w kappa2_w kappa0_d kappa1_d kappa2_d kappa3 dmax Display
 global MonetaryShockPers rho rb
 global dVamin dVbmin DistributeProfitsInProportion TaxHHProfitIncome profdistfrac corptax deathrate ReportNonMonotonicity
-
+global SolveStickyPriceTransition SaveTime1PolicyFns SaveCumPolicyFnsIRF
 % OPTIONS
 TwoPointWageProcess = false; % set ngpy=2
 Borrowing = true;

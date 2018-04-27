@@ -41,7 +41,7 @@ while ldiff>KFEtol && it<maxiterKFE
     lgmat = gmat*lmat';
     lgmat(ib,:) = lgmat(ib,:) + deltakfe*deathrate/abdelta(ib)*(abdelta(:)'*gmat);
     % sweep over y
-    parfor iy = 1:ngpy
+    for iy = 1:ngpy %par
         lgmat(:,iy) = spdiags(B(:,:,iy),[0 -1 1 -ngpa ngpa],nab,nab)\lgmat(:,iy);
     end
    

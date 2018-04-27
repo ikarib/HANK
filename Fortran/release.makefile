@@ -1,5 +1,5 @@
 FC = ifort
-FCFLAGS = -m64 -traceback -O3 -implicitnone  -L/home/int/kais/SuiteSparse/lib -lumfpack -lamd -lcholmod -lcolamd -lsuitesparseconfig -lblas -fpconstant
+FCFLAGS = -m64 -traceback -O3 -qopenmp -implicitnone  -L/home/int/kais/SuiteSparse/lib -lumfpack -lamd -lcholmod -lcolamd -lsuitesparseconfig -lblas -fpconstant
 LDFLAFS = -m64 -traceback -O3 -qopenmp -implicitnone  -Wl,-stack_size,0x100000000 -L/home/int/kais/SuiteSparse/lib -lumfpack -lamd -lcholmod -lcolamd -lsuitesparseconfig -lblas 
 # -O3
 
@@ -16,7 +16,6 @@ OBJ = $(MOD) $(SUBR)
 #	$(FC) $(FCFLAGS) -o $@ $^ $(LDFLAGS)
 Main: $(MOD) $(SUBR) Main.o
 	$(FC) $(FCFLAGS) -o $@ $^ $(LDFLAGS)
-#	./Main
 
 %: %.o
 	$(FC) $(FCFLAGS) -o $@ $^ $(LDFLAGS)

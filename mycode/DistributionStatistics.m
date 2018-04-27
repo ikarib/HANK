@@ -37,7 +37,6 @@ lbmargcum = cumsum(lbmargdist);
 
 % illiquid wealth marginal dist
 lamargdist = sum(gamarg,3).*adelta;
-lamargdist(lamargdist<eps) = eps;
 lamargcum = cumsum(lamargdist);
 
 % other marginal dist
@@ -46,7 +45,6 @@ if ~iteratingtransition && ~calibrating
     [lnwgrid,ordernw] = sort(lnw(:));
     lnwdelta = diff2(lnwgrid);
     lnwmargdist = gabmarg(ordernw);
-    lnwmargdist(lnwmargdist<eps) = eps;
     lnwmargcum = cumsum(lnwmargdist);
     [ia,ib] = ind2sub([ngpa,ngpb],ordernw);
     iab = lnwmargdist <= 1e-12;
@@ -63,14 +61,12 @@ if ~iteratingtransition && ~calibrating
     [lcgrid,orderc] = sort(c(:));
     lcdelta = diff2(lcgrid);
     lcmargdist = lmargdist(orderc);
-    lcmargdist(lcmargdist<eps) = eps;
     lcmargcum = cumsum(lcmargdist);
 
     % gross total income
     [lincgrid,orderinc] = sort(lgrossinc(:));
     lincdelta = diff2(lincgrid);
     lincmargdist = lmargdist(orderinc);
-    lincmargdist(lincmargdist<eps) = eps;
     lincmargcum = cumsum(lincmargdist);
     [ia,ib,~] = ind2sub([ngpa,ngpb,ngpy],orderinc);
     [iab,~] = ind2sub([nab,ngpy],orderinc);
@@ -128,25 +124,30 @@ Ec_b0far = sum(sum(sum(c_b(:,bgrid>=defnbclose*Egrosslabinc,:))))/(1-FRACb0close
 % percentiles: use cumulative marginal distributions
 lpvec = [1 2 5 10 25 50 75 90 95 98 99]/100;
 if ~iteratingtransition && (~calibrating || MatchMedianLiq) && (ngpy>1 || deathrate>0)
-    % liquid wealth    
-    PERCb = interp1(lbmargcum,bgrid,lpvec);
+    % liquid wealth
+    iab = diff(lbmargcum) > 0;
+    PERCb = interp1(lbmargcum(iab),bgrid(iab),lpvec);
     PERCb(lpvec<=lbmargcum(1)) = bgrid(1);
 end
 if ~iteratingtransition && (~calibrating || MatchMedianIll || MatchP75Ill) && (ngpy>1 || deathrate>0)
     % illiquid wealth
-    PERCa = interp1(lamargcum,agrid,lpvec);
+    iab = diff(lamargcum) > 0;
+    PERCa = interp1(lamargcum(iab),agrid(iab),lpvec);
     PERCa(lpvec<=lamargcum(1)) = agrid(1);
 end
     
 if ~iteratingtransition && ~calibrating && (ngpy>1 || deathrate>0)
     % net worth
-    PERCnw = interp1(lnwmargcum,lnwgrid,lpvec);
+    iab = diff(lnwmargcum) > 0;
+    PERCnw = interp1(lnwmargcum(iab),lnwgrid(iab),lpvec);
     PERCnw(lpvec<=lnwmargcum(1)) = lnwgrid(1);
     % consumption
-    PERCc = interp1(lcmargcum,lcgrid,lpvec);
+    iab = diff(lcmargcum) > 0;
+    PERCc = interp1(lcmargcum(iab),lcgrid(iab),lpvec);
     PERCc(lpvec<=lcmargcum(1)) = lcgrid(1);
     % gross income
-    PERCinc = interp1(lincmargcum,lincgrid,lpvec);
+    iab = diff(lincmargcum) > 0;
+    PERCinc = interp1(lincmargcum(iab),lincgrid(iab),lpvec);
     PERCinc(lpvec<=lincmargcum(1)) = lincgrid(1);
 
     % gini coefficient

@@ -13,10 +13,10 @@ if Display && stickytransition; fprintf('Solving for sticky price transition\n')
 % construct sequence of guesses of capital: assume log linear in capital (constant if a temporary transition)
 lldK = log(equmFINALSS.capital/equmINITSS.capital)/Ttransition;
 equmTRANS.capital = equmINITSS.capital*exp(lldK*[0 2:Ttransition]);
-
-% construct sequence of guesses of Rb
+equmTRANS.labor = repmat(equmINITSS.labor,1,Ttransition);
 equmTRANS.pi = repmat(equmINITSS.pi,1,Ttransition);
 
+% construct sequence of guesses of Rb
 if IncludeForwardGuideShock
     equmTRANS.rnom = equmINITSS.rnom + [repmat(phifg,1,itfg-1) repmat(phitaylor,1,Ttransition-itfg+1)]*equmTRANS.pi + equmTRANS.mpshock;
 else
@@ -27,13 +27,31 @@ equmTRANS.rb = equmTRANS.rnom - equmTRANS.pi;
 ii = 1;
 ldiffK = 1;
 ldiffB = 1;
+
+% load solution
+TRANS = load('trans');
+equmTRANS.capital = TRANS.capital;
+equmTRANS.labor = TRANS.labor;
+equmTRANS.pi = TRANS.pi;
+equmTRANS.rb = TRANS.rb;
+clear TRANS
+% Elapsed time is 73.563902 seconds.
+%   Transition iter 602:
+%    K err 1.07527244720663e-10,  B err 8.46800696728577e-07
+%    household bond 1.6195372438334,  target bond 1.61953724383552
+   
 while ii<=maxitertranssticky && max(ldiffK,ldiffB)>toltransition
+save('trans2','-struct','equmTRANS')
     % solve for transtion
     tic;Transition;toc
     
     % computed implied equilibrium quantities
     lbond = [statsTRANS.Eb];
     lcapital = ([statsTRANS.Ea] - equmTRANS.equity)./ (1 - equmTRANS.fundlev);
+    lfundbond = -lcapital.*equmTRANS.fundlev;
+    lworldbond = -lbond - equmTRANS.govbond - lfundbond;
+    lrb = WorldBondInverse2( diff([lworldbond equmFINALSS.worldbond])./(bondadjust*deltatransvec) + lworldbond,equmINITSS.worldbond,equmINITSS.rb,bondelast);
+
     if ConvergenceRelToOutput
         ldiffK = max(abs(lcapital-equmTRANS.capital)/equmINITSS.output);
         ldiffB = max(abs(lbond-equmTRANS.bond)/equmINITSS.output);
@@ -50,13 +68,7 @@ while ii<=maxitertranssticky && max(ldiffK,ldiffB)>toltransition
     % update capital and interest rate
     if ii<maxitertranssticky && max(ldiffK,ldiffB)>toltransition
         equmTRANS.capital(2:Ttransition) = PartialUpdate(Ttransition-1,stepstickytransK,equmTRANS.capital(2:Ttransition),lcapital(2:Ttransition));
-        
-        lfundbond = -lcapital.*equmTRANS.fundlev;
-        lworldbond = -lbond - equmTRANS.govbond - lfundbond;
-
-        lrb = WorldBondInverse2( diff([lworldbond equmFINALSS.worldbond])./(bondadjust*deltatransvec) + lworldbond,equmINITSS.worldbond,equmINITSS.rb,bondelast);
         equmTRANS.rb = PartialUpdate(Ttransition,stepstickytransB,equmTRANS.rb,lrb);
-            
     else
         % run distribution stats with full
         iteratingtransition = false;
@@ -77,15 +89,13 @@ while ii<=maxitertranssticky && max(ldiffK,ldiffB)>toltransition
     % labor
     equmTRANS.labor = [statsTRANS.Elabor];
 
-    save equmTRANS equmTRANS
-    save statsTRANS statsTRANS
+   
     ii = ii+1;
 end
 
 if stickytransition
-    irfpointer.equmSTICKY = equmTRANS;
-    irfpointer.statsSTICKY = statsTRANS;
-    irfpointer.solnSTICKY = solnTRANS;
+    irf.equmSTICKY = equmTRANS;
+    irf.statsSTICKY = statsTRANS;
+    irf.solnSTICKY = solnTRANS;
 end
-
 

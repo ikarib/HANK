@@ -82,3 +82,17 @@ max(max(abs(wealtheff2ass-lwealtheff2ass(reshape(1:nab,ngpb,ngpa)',:))))
 
 
 max(abs(deltatransvec-load('deltatransvec.txt')'))
+
+%% check IRF
+for ipe = 0:15
+    if ipe; OutputFileIRF = [OutputDir,'IRF_',IRFDir,'/PE',num2str(ipe)];
+      else; OutputFileIRF = [OutputDir,'IRF_',IRFDir,'/NOFS']; end
+    S = load(OutputFileIRF);
+    for f=fields(S.equmSTICKY)'
+        f{1}
+        temp = load([OutputFileIRF,'/STICKY/',f{1},'.txt']);
+        max(max(abs(S.equmSTICKY.(f{1})-temp')))
+    end
+%     S.statsSTICKY
+%     S.solnSTICKY
+end

@@ -34,6 +34,7 @@ IF(IncludeMonetaryShock==1) THEN
 
 	END DO	
 	equmTRANS(Ttransition-nendtrans+1:Ttransition)%mpshock = equmINITSS%mpshock
+	
 
 	IRFDir = "Monetary"
 	CALL IRFSequence(IRFDir)

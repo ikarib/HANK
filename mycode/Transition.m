@@ -15,23 +15,22 @@ switch FirmDiscountRate
     case 2; lfirmdiscount = equmINITSS.rb;
     case 3; lfirmdiscount = equmINITSS.ra;
     case 4; lfirmdiscount = equmTRANS.rb;
-    case 5; lfirmdiscount = equmTRANS.ra;
+    case 5; lfirmdiscount = equmINITSS.ra;
 end
 
 % marginal costs
-equmTRANS.mc = max(lminmargcost,1-1./equmTRANS.elast - theta./equmTRANS.elast.* ...
-          (((diff([equmTRANS.tfp     equmFINALSS.tfp])./equmTRANS.tfp ...
-    + alpha*(diff([equmTRANS.capital equmFINALSS.capital])./equmTRANS.capital ...
-           + diff([equmTRANS.caputil equmFINALSS.caputil])./equmTRANS.caputil) ...
- + (1-alpha)*diff([equmTRANS.labor   equmFINALSS.labor])./equmTRANS.labor).*equmTRANS.pi ...
-           + diff([equmTRANS.pi      equmFINALSS.pi]))./deltatransvec ...
-           -lfirmdiscount.*equmTRANS.pi));
+equmTRANS.mc = (lfirmdiscount-diff([equmTRANS.tfp equmFINALSS.tfp])./(equmTRANS.tfp.*deltatransvec) ...
+    - alpha*diff([equmTRANS.capital equmFINALSS.capital])./(equmTRANS.capital.*deltatransvec) ...
+    - alpha*diff([equmTRANS.caputil equmFINALSS.caputil])./(equmTRANS.caputil.*deltatransvec) ...
+    - (1-alpha)*diff([equmTRANS.labor equmFINALSS.labor])./(equmTRANS.labor.*deltatransvec) ) ...
+    .* [equmTRANS.pi(2:Ttransition) equmFINALSS.pi] * theta./ equmTRANS.elast ...
+    + (equmTRANS.elast-1)./equmTRANS.elast - (diff([equmTRANS.pi equmFINALSS.pi])./deltatransvec) * theta./ equmTRANS.elast;
 
 equmTRANS.gap = equmTRANS.elast.*equmTRANS.mc ./ (equmTRANS.elast-1) - 1;
 equmTRANS.tfpadj = (equmTRANS.tfp.^((1+utilelast)/utilelastalpha)) .* (equmTRANS.mc*alpha./equmINITSS.rcapital).^(alpha*utilelast/utilelastalpha);
 equmTRANS.KNratio = equmTRANS.capital./equmTRANS.labor;
 equmTRANS.wage = equmTRANS.mc*(1-alpha).* equmTRANS.tfpadj .* equmTRANS.KNratio.^(alpha/utilelastalpha);
-equmTRANS.netwage = (1-equmTRANS.labtax)*equmTRANS.wage;
+equmTRANS.netwage = (1-equmTRANS.labtax).*equmTRANS.wage;
 equmTRANS.caputil = ((equmTRANS.mc*alpha.*equmTRANS.tfp/equmINITSS.rcapital) .* equmTRANS.KNratio.^(alpha-1)) .^ (utilelast/utilelastalpha);
 equmTRANS.output = equmTRANS.tfpadj .* equmTRANS.capital.^(alpha/utilelastalpha) .* equmTRANS.labor.^((1-alpha)*(1+utilelast)/utilelastalpha);
 equmTRANS.KYratio = (equmTRANS.KNratio.^(1-alpha)) ./ (equmTRANS.tfp.*equmTRANS.caputil.^alpha);
@@ -137,6 +136,26 @@ equmTRANS.bond = -equmTRANS.worldbond - equmTRANS.govbond - equmTRANS.fundbond;
 holdbgrid = bgrid;
 
 %% check Fortran
+% TRANS = load(sprintf('TRANS/sol%4d.txt',ii));
+% f={'borrwedge','fundlev','elast','tfp','caputil','labor','labtax','ra','mpshock','capital','pi','rnom','rb','rborr','worldbond','fundbond','mc','gap','tfpadj','KNratio','wage','netwage','output','KYratio','rcapital','priceadjust','profit','deprec','investment','dividend','divrate','equity','illassetdrop','govbond','govexp','taxrev','lumptransfer','bond'};
+% for i=1:numel(f)
+%     err = max(abs(TRANS(i,:)-equmTRANS.(f{i})));
+%     if err>1e-5; fprintf('%s = %g\n',f{i},err); end
+% end
+
+%%
+% if ii==1
+% TRANS = load(sprintf('TRANS/sol%4d.txt',1721));
+% f={'borrwedge','fundlev','elast','tfp','caputil','labor','labtax','ra','mpshock','capital','pi','rnom','rb','rborr','worldbond','fundbond','mc','gap','tfpadj','KNratio','wage','netwage','output','KYratio','rcapital','priceadjust','profit','deprec','investment','dividend','divrate','equity','illassetdrop','govbond','govexp','taxrev','lumptransfer','bond'};
+% equmTRANS=struct;
+% for i=1:numel(f)
+%     if numel(unique(TRANS(i,:)))==1
+%         equmTRANS.(f{i}) = TRANS(i,1);
+%     else
+%         equmTRANS.(f{i}) = TRANS(i,:);
+%     end
+% end
+% end
 % subplot(2,4,1);plot([equmTRANS.capital;load(sprintf('TRANS/capital%4d.txt',ii))]');title('capital');hold on
 % subplot(2,4,2);plot([equmTRANS.labor;load(sprintf('TRANS/labor%4d.txt',ii))]');title('labor');hold on
 % subplot(2,4,3);plot([equmTRANS.mc;load(sprintf('TRANS/mc%4d.txt',ii))]');title('mc');hold on
@@ -165,13 +184,13 @@ for it = Ttransition:-1:1
     labtax = equmTRANS.labtax;
     lumptransfer = equmTRANS.lumptransfer(it);
     rb = equmTRANS.rb(it);
-    tfp = equmTRANS.tfp(it);
+    tfp = equmTRANS.tfp;
     mpshock = equmTRANS.mpshock(it);
 %     prefshock = equmTRANS.prefshock(it);
-    fundlev = equmTRANS.fundlev(it);
-    fundbond = equmTRANS.fundbond(it);
+    fundlev = equmTRANS.fundlev;
+    fundbond = equmTRANS.fundbond;
     worldbond = equmTRANS.worldbond(it);
-    elast = equmTRANS.elast(it);
+    elast = equmTRANS.elast;
 %     gam = equmTRANS.gam(it);
     profit = equmTRANS.profit(it);
 
@@ -237,7 +256,7 @@ for it = Ttransition:-1:1
 
     % store value functions and A matrix
     solnTRANS.V{it} = Vnew;
-%     solnTRANS.u{it} = u;
+    solnTRANS.AU{it} = AU;
     solnTRANS.c{it} = c;
     solnTRANS.s{it} = s;
     solnTRANS.h{it} = h;
@@ -261,9 +280,9 @@ for it = 1:Ttransition
     lmat = eye(ngpy) + deltatransvec(it)*ymarkovoff';
 
     lgmat1 = reshape(lgmat,nab,ngpy)*lmat';
-    lgmat1(ib,:) = lgmat1(ib,:) + deltatransvec(it)*deathrate/abdelta(ib)*(abdelta(:)'*reshape(gmat,nab,ngpy));
+    lgmat1(ib,:) = lgmat1(ib,:) + deltatransvec(it)*deathrate./abdelta(ib)*(abdelta(:)'*reshape(gmat,nab,ngpy));
     % sweep over y
-    parfor iy = 1:ngpy
+    for iy = 1:ngpy %par
         lgmat1(:,iy) = spdiags(B(:,:,iy,it),[0 -1 1 -ngpa ngpa],nab,nab)\lgmat1(:,iy);
     end
     lgmat1 = reshape(lgmat1,ngpa,ngpb,ngpy);
