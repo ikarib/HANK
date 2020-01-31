@@ -341,7 +341,6 @@ DO iy = 1,ngpy
 END DO
 !$OMP END PARALLEL DO
 
-
 !check for non-monotonicity: can't do in parallel
 IF (ReportNonMonotonicity==1) THEN
 	DO iaby = 1,naby

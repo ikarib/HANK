@@ -117,6 +117,7 @@ A = reshape([  ladriftF./[dagrid;1] ... % a+1
               -lbdriftB./[1 dbgrid] ... % b-1
             ], nab,4,ngpy);
 B = [1+delta*(sum(A,2)+rho+deathrate-ymarkovdiag) -delta*A]; % diagonals
+% B=[B(:,1:2,:) [zeros(1,1,ngpy);B(1:end-1,3,:)] B(:,4,:) [zeros(ngpa,1,ngpy);B(1:end-ngpa,5,:)]]; % bug??
 for iy = 1:ngpy %par
     lbvec(:,iy) = spdiags(B(:,:,iy),[0 -1 1 -ngpa ngpa],nab,nab)'\lbvec(:,iy);
 end

@@ -1,0 +1,102 @@
+ Time:    89.8350260000000     
+ Time:    95.2474110000000     
+ Time:    92.2994590000000     
+ Time:    87.6602970000000     
+ Time:    86.2019010000000     
+ Time:    82.7836590000001     
+ Time:    82.1488320000000     
+ Time:    87.4962680000000     
+ Time:    79.3033530000000     
+ Time:    82.6435350000000     
+ Time:    84.0775640000001     
+ Time:    80.3998389999999     
+ Time:    81.7731050000000     
+ Time:    83.2576270000000     
+
+
+    New RHO = 5.0000D-01     Number of function values =    14
+    Least value of F =  2.438212899274497D-01         The corresponding X is:
+    -3.178054D+00  -5.651486D+00   1.386294D+00   1.386294D+00   8.472979D-01
+    -4.595120D+00
+ Time:    83.6889220000000     
+ Time:    79.9584870000001     
+ Time:    81.5316410000000     
+ Time:    81.6082030000000     
+ Time:    81.2764929999998     
+ Time:    81.8786439999999     
+ Time:    82.4207469999999     
+ Time:    79.9718419999999     
+ Time:    82.8829690000000     
+ Time:    84.2884849999998     
+ Time:    81.3346929999998     
+ Time:    82.5933479999999     
+ Time:    80.7528219999999     
+ Time:    84.9714859999999     
+ Time:    83.9716129999997     
+ Time:    79.2547869999999     
+ Time:    83.4462039999999     
+ Time:    80.5874480000002     
+ Time:    83.2192340000001     
+ Time:    81.9519099999998     
+ Time:    79.0760360000004     
+ Time:    81.4043749999996     
+ Time:    81.6396999999997     
+ Time:    79.1870500000000     
+ Time:    82.5566739999999     
+ Time:    80.8441949999997     
+ Time:    79.5977490000000     
+ Time:    81.3833830000003     
+ Time:    82.7658859999997     
+ Time:    79.6299890000000     
+ Time:    82.2059380000001     
+ Time:    80.4859670000001     
+ Time:    82.5429520000002     
+ Time:    84.5463000000000     
+ Time:    82.8673860000004     
+ Time:    87.0854460000000     
+ Time:    90.8703290000003     
+
+
+    New RHO = 5.0000D-02     Number of function values =    51
+    Least value of F =  4.111967471713199D-03         The corresponding X is:
+    -3.461555D+00  -7.499672D+00   9.926960D-01   1.788160D+00  -1.209914D+00
+    -6.046648D+00
+ Time:    85.4329200000002     
+ Time:    87.3252789999997     
+ Time:    87.5942470000000     
+ Time:    82.8992699999999     
+ Time:    87.6357669999998     
+ Time:    87.0005380000002     
+ Time:    83.8581819999999     
+ Time:    82.8399780000000     
+ Time:    83.5580309999996     
+ Time:    84.2304880000002     
+ Time:    86.6539499999999     
+ Time:    82.0359220000000     
+ Time:    83.6486890000006     
+ Time:    84.4170360000007     
+ Time:    83.6848080000000     
+ Time:    82.9321710000004     
+ Time:    81.7792500000005     
+ Time:    82.3271459999996     
+ Time:    84.7136750000000     
+slurmstepd: error: *** JOB 1477083 ON n3 CANCELLED AT 2019-07-22T15:17:49 DUE TO TIME LIMIT ***
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+Main               000000000043E314  Unknown               Unknown  Unknown
+libpthread-2.17.s  00002B97B45166D0  Unknown               Unknown  Unknown
+Main               000000000040A49A  Unknown               Unknown  Unknown
+Main               0000000000415626  Unknown               Unknown  Unknown
+libiomp5.so        00002B97B420FA43  __kmp_invoke_micr     Unknown  Unknown
+libiomp5.so        00002B97B41D2CDA  Unknown               Unknown  Unknown
+libiomp5.so        00002B97B41D45B6  __kmp_fork_call       Unknown  Unknown
+libiomp5.so        00002B97B4192BB0  __kmpc_fork_call      Unknown  Unknown
+Main               0000000000415299  Unknown               Unknown  Unknown
+Main               000000000041999C  Unknown               Unknown  Unknown
+Main               000000000041BCA0  Unknown               Unknown  Unknown
+Main               000000000041B05C  Unknown               Unknown  Unknown
+Main               0000000000414B02  Unknown               Unknown  Unknown
+Main               0000000000435E67  Unknown               Unknown  Unknown
+Main               0000000000404E62  Unknown               Unknown  Unknown
+libc-2.17.so       00002B97B4745445  __libc_start_main     Unknown  Unknown
+Main               0000000000404D69  Unknown               Unknown  Unknown

@@ -14,6 +14,8 @@ REAL(8), INTENT(OUT)	:: f(m)
 REAL(8)					:: lp(12),lweight(m),lf
 INTEGER					:: im,ip
 
+!REAL(8) :: t1,t2
+!call cpu_time(t1)
 objeval = objeval+1
 write(4,*) '*********************************'
 write(4,*) 'EVALUATION NUMBER: ',objeval
@@ -123,6 +125,11 @@ delta2 = lp(12)
 CALL Simulate
 CALL ComputeMoments
 
+!OPEN(3, FILE = trim(OutputDir) // 'ysim.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,nsim,Tsim*2,(/y1sim,y2sim/));
+!OPEN(3, FILE = trim(OutputDir) // 'yannsim.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,nsim,Tann,yannsim);
+
 lweight = 1.0
 im = 0
 IF (MatchVarLogY == 1) THEN
@@ -186,9 +193,12 @@ END IF
 
 lweight = lweight/sum(lweight)
 
-lf = sqrt(sum((f**2.0)*lweight)/sum(lweight))
+!!lf = sqrt(sum((f**2.0)*lweight)/sum(lweight))
+lf = sum(f**2.0)
 write(4,*) ' objective fun: ',lf
 write(4,*) ' '
 
+!	call cpu_time(t2)
+!	write(*,*) 'Time: ', t2-t1
 
 END SUBROUTINE dfovec

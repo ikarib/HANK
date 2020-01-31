@@ -17,6 +17,7 @@ else
     lnetprofinc = lgrossprofinc;
 end
 
+bdrift = (rborr*(bgrid<=0)+rb*(bgrid>0)+PerfectAnnuityMarkets*deathrate).*bgrid;
 lgrossinc = lgrosslabinc + lgrossprofinc + bdrift + ...
     (ra+PerfectAnnuityMarkets*deathrate)*agrid;
 
@@ -75,6 +76,13 @@ if ~iteratingtransition && ~calibrating
     linc_c = c(orderinc);
     linc_h = h(orderinc);
     linc_nw = lnw(iab);
+
+    % means
+    Enw = sum(lnwgrid.*lnwmargdist);
+    Einc = sum(lincgrid.*lincmargdist);
+else
+    Enw = NaN;
+    Einc = NaN;
 end
 
 %% means
@@ -85,7 +93,6 @@ Enetlabinc = sum(sum(sum(lnetlabinc.*lmargdist)));
 Egrosslabinc = sum(sum(sum(lgrosslabinc.*lmargdist)));
 Enetprofinc = sum(sum(sum(lnetprofinc.*lmargdist)));
 Egrossprofinc = sum(sum(sum(lgrossprofinc.*lmargdist)));
-Einc = sum(lincgrid.*lincmargdist);
 Ea = sum(sum(sum(agrid.*lmargdist)));
 Eb = sum(sum(sum(bgrid.*lmargdist)));
 Ec = sum(sum(sum(c.*lmargdist)));
@@ -93,14 +100,13 @@ Ed = sum(sum(sum(d.*lmargdist)));
 Eadjcost = sum(sum(sum(ladjcost.*lmargdist)));
 EbP = sum(sum(sum(bgrid(bgrid>0).*lmargdist(:,bgrid>0,:))));
 EbN = sum(sum(sum(bgrid(bgrid<0).*lmargdist(:,bgrid<0,:))));
-Enw = sum(lnwgrid.*lnwmargdist);
 
 % frac at exactly zero
 FRACa0 = lamargdist(1);
 if Borrowing; FRACb0 = lbmargdist(ngpbNEG+1); else; FRACb0 = lbmargdist(1); end
 FRACnw0 = sum(lnwmargdist(abs(lnwgrid)<1e-8));
-FRACb0a0 = sum(lmargdist(abs(la)<1e-8 & abs(lb)<1e-8));
-FRACb0aP = sum(lmargdist(la>1e-8 & abs(lb)<1e-8));
+FRACb0a0 = sum(sum(sum(lmargdist(abs(agrid)<1e-8,abs(bgrid)<1e-8,:))));
+FRACb0aP = sum(sum(sum(lmargdist(agrid>1e-8,abs(bgrid)<1e-8,:))));
 
 % frac zero or close but greater than zero
 FRACb0close = interp1(bgrid,lbmargcum,defnbclose*Egrosslabinc);
@@ -115,7 +121,7 @@ if ~iteratingtransition % since we don't store gabcum
     if Borrowing; FRACb0a0close = FRACb0a0close - interp1(agrid,gabcum(:,ngpbNEG),defnaclose*Egrosslabinc); end
 end
 
-FRACbN = sum(lmargdist(lb<-1e-12));
+FRACbN = sum(sum(sum(lmargdist(:,bgrid<-1e-12,:))));
 c_b = c.*lmargdist;
 Ec_bN = sum(sum(sum(c_b(:,bgrid<-1e-8,:))))/FRACbN;
 Ec_b0close = sum(sum(sum(c_b(:,bgrid>-1e-8 & bgrid<defnbclose*Egrosslabinc,:))))/FRACb0close;
@@ -142,7 +148,7 @@ if ~iteratingtransition && ~calibrating && (ngpy>1 || deathrate>0)
     PERCnw = interp1(lnwmargcum(iab),lnwgrid(iab),lpvec);
     PERCnw(lpvec<=lnwmargcum(1)) = lnwgrid(1);
     % consumption
-    iab = diff(lcmargcum) > 0;
+    [~,iab] = unique(lcmargcum); %%  check timing unique vs diff > 0
     PERCc = interp1(lcmargcum(iab),lcgrid(iab),lpvec);
     PERCc(lpvec<=lcmargcum(1)) = lcgrid(1);
     % gross income

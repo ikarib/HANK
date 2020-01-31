@@ -29,19 +29,20 @@ ldiffK = 1;
 ldiffB = 1;
 
 % load solution
-TRANS = load('trans');
-equmTRANS.capital = TRANS.capital;
-equmTRANS.labor = TRANS.labor;
-equmTRANS.pi = TRANS.pi;
-equmTRANS.rb = TRANS.rb;
-clear TRANS
+trans = load('trans');
+equmTRANS.capital = trans.capital;
+equmTRANS.labor = trans.labor;
+equmTRANS.pi = trans.pi;
+equmTRANS.rb = trans.rb;
+clear trans
 % Elapsed time is 73.563902 seconds.
 %   Transition iter 602:
 %    K err 1.07527244720663e-10,  B err 8.46800696728577e-07
 %    household bond 1.6195372438334,  target bond 1.61953724383552
-   
+% ii=1587;
+equmTRANS.ra = equmINITSS.ra;
 while ii<=maxitertranssticky && max(ldiffK,ldiffB)>toltransition
-save('trans2','-struct','equmTRANS')
+% save('trans2','-struct','equmTRANS')
     % solve for transtion
     tic;Transition;toc
     
@@ -72,7 +73,7 @@ save('trans2','-struct','equmTRANS')
     else
         % run distribution stats with full
         iteratingtransition = false;
-        Transition
+        tic;Transition;toc
         equmTRANS.capital = lcapital;
         equmTRANS.bond = lbond;
         equmTRANS.rb = lrb;

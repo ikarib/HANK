@@ -39,7 +39,7 @@ function lvec = effect(disc,rhs)
     % initialize iterations without y transitions
     B = [sum(AU,2)+eta+rho-rb+disc -AU];
     lvec = rhs;
-    for iy=1:ngpy %par
+    for iy = 1:ngpy %par
         lvec(:,iy) = spdiags(B(:,:,iy),[0 -1 1 -ngpa ngpa],nab,nab)'\lvec(:,iy);
     end
     B = [sum(AU,2)+eta+rho-rb+disc-ymarkovdiag -AU];

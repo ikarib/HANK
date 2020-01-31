@@ -67,10 +67,10 @@ ELSE
 END IF
 
 !fraction 1 year log changes in ranges
-fracdy1less5 = COUNT(ABS(yannsim(:,2)-yannsim(:,1)) < 0.05)/real(nsim)
-fracdy1less10 = COUNT(ABS(yannsim(:,2)-yannsim(:,1)) < 0.1)/real(nsim)
-fracdy1less20 = COUNT(ABS(yannsim(:,2)-yannsim(:,1)) < 0.2)/real(nsim)
-fracdy1less50 = COUNT(ABS(yannsim(:,2)-yannsim(:,1)) < 0.5)/real(nsim)
+fracdy1less5 = COUNT(ABS(yannsim(:,2)-yannsim(:,1)) < 0.05)/real(nsim,8)
+fracdy1less10 = COUNT(ABS(yannsim(:,2)-yannsim(:,1)) < 0.1)/real(nsim,8)
+fracdy1less20 = COUNT(ABS(yannsim(:,2)-yannsim(:,1)) < 0.2)/real(nsim,8)
+fracdy1less50 = COUNT(ABS(yannsim(:,2)-yannsim(:,1)) < 0.5)/real(nsim,8)
 
 
 

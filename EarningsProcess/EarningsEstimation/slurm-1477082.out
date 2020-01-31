@@ -1,0 +1,102 @@
+ Time:    65.9472690000000     
+ Time:    68.7694040000000     
+ Time:    64.9672500000000     
+ Time:    60.6084530000000     
+ Time:    59.9388810000000     
+ Time:    59.9213580000000     
+ Time:    59.9306700000000     
+ Time:    59.8719590000001     
+ Time:    59.8863710000001     
+ Time:    60.0143569999999     
+ Time:    59.6653910000000     
+ Time:    59.9112689999999     
+ Time:    59.7226039999999     
+ Time:    64.0008670000001     
+
+
+    New RHO = 5.0000D-01     Number of function values =    14
+    Least value of F =  2.438212899274497D-01         The corresponding X is:
+    -3.178054D+00  -5.651486D+00   1.386294D+00   1.386294D+00   8.472979D-01
+    -4.595120D+00
+ Time:    61.9675920000000     
+ Time:    60.4265690000000     
+ Time:    60.1945699999999     
+ Time:    60.1145680000000     
+ Time:    59.6468640000001     
+ Time:    59.9168510000000     
+ Time:    59.6810759999998     
+ Time:    60.0502210000000     
+ Time:    60.2277630000001     
+ Time:    60.0717430000000     
+ Time:    59.7360490000001     
+ Time:    59.6168840000000     
+ Time:    59.6389959999999     
+ Time:    59.8026580000001     
+ Time:    59.5860160000000     
+ Time:    59.9710800000000     
+ Time:    60.1116380000001     
+ Time:    59.7651799999999     
+ Time:    59.6538110000001     
+ Time:    59.8891330000001     
+ Time:    59.5704130000004     
+ Time:    59.7008129999999     
+ Time:    59.2911129999998     
+ Time:    59.8952350000000     
+ Time:    60.1212049999999     
+ Time:    59.7590450000002     
+ Time:    59.6884499999996     
+ Time:    60.0277750000000     
+ Time:    59.5114950000002     
+ Time:    59.6673270000001     
+ Time:    59.4552890000000     
+ Time:    59.9666240000001     
+ Time:    60.2339040000002     
+ Time:    59.8352370000002     
+ Time:    59.6154980000001     
+ Time:    59.8178870000002     
+ Time:    59.7084839999998     
+
+
+    New RHO = 5.0000D-02     Number of function values =    51
+    Least value of F =  4.111967471713199D-03         The corresponding X is:
+    -3.461555D+00  -7.499672D+00   9.926960D-01   1.788160D+00  -1.209914D+00
+    -6.046648D+00
+ Time:    59.6429889999999     
+ Time:    59.4927379999999     
+ Time:    60.7214260000001     
+ Time:    61.2465600000000     
+ Time:    60.5239440000000     
+ Time:    60.6207979999999     
+ Time:    59.9741750000003     
+ Time:    60.0862869999996     
+ Time:    59.8744839999999     
+ Time:    60.1096970000003     
+ Time:    60.3674000000001     
+ Time:    60.5483540000000     
+ Time:    60.1365530000003     
+ Time:    60.1893200000000     
+ Time:    60.0059450000003     
+ Time:    60.1277129999999     
+ Time:    59.9956960000000     
+ Time:    59.9351170000000     
+slurmstepd: error: *** JOB 1477082 ON n3 CANCELLED AT 2019-07-22T15:17:19 DUE TO TIME LIMIT ***
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+Main               000000000043E314  Unknown               Unknown  Unknown
+libpthread-2.17.s  00002B9EA20296D0  Unknown               Unknown  Unknown
+Main               000000000040A487  Unknown               Unknown  Unknown
+Main               0000000000415626  Unknown               Unknown  Unknown
+libiomp5.so        00002B9EA1D22A43  __kmp_invoke_micr     Unknown  Unknown
+libiomp5.so        00002B9EA1CE5CDA  Unknown               Unknown  Unknown
+libiomp5.so        00002B9EA1CE75B6  __kmp_fork_call       Unknown  Unknown
+libiomp5.so        00002B9EA1CA5BB0  __kmpc_fork_call      Unknown  Unknown
+Main               0000000000415299  Unknown               Unknown  Unknown
+Main               000000000041999C  Unknown               Unknown  Unknown
+Main               000000000041BCA0  Unknown               Unknown  Unknown
+Main               000000000041B05C  Unknown               Unknown  Unknown
+Main               0000000000414B02  Unknown               Unknown  Unknown
+Main               0000000000435E67  Unknown               Unknown  Unknown
+Main               0000000000404E62  Unknown               Unknown  Unknown
+libc-2.17.so       00002B9EA2258445  __libc_start_main     Unknown  Unknown
+Main               0000000000404D69  Unknown               Unknown  Unknown
+slurmstepd: error: task_p_post_term: rmdir(/dev/cpuset/slurm1477082/slurm1477082.4294967294_0) failed Device or resource busy

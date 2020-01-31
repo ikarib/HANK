@@ -1,0 +1,14 @@
+What statistics do I need from Longitudinal Administrative Databank (LAD)?
+
+mu2y % VarLogY
+mu2dy1 % VarD1LogY
+% gam3dy1 % SkewD1LogY
+gam4dy1 % KurtD1LogY
+mu2dy5 % VarD5LogY
+% gam3dy5 % SkewD5LogY
+gam4dy5 % KurtD5LogY
+% fracdy1less5 % FracD1Less5
+fracdy1less10 % FracD1Less10
+fracdy1less20 % FracD1Less20
+fracdy1less50 % FracD1Less50
+

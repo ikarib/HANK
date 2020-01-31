@@ -1,7 +1,7 @@
 clear
 load ss neqmiter wage netwage profit ra KNratio KYratio V gmat
 V=reshape(V,2000,33); gmat=reshape(permute(reshape(gmat,40,50,33),[2 1 3]),2000,33);
-fid = fopen('V.txt','w');
+fid = fopen('ss.dat','w');
 fprintf(fid,'%d\n',neqmiter);
 fprintf(fid,'%26.15G\n',[wage netwage profit ra KNratio KYratio]);
 fprintf(fid,[repmat('%26.15G',1,2000) '\n'],[V gmat]);
@@ -12,8 +12,8 @@ fclose(fid);
 %% transition
 clear
 load trans
-fid = fopen('TRANS/sol.dat','w');
-fprintf(fid,[repmat('%26.15G',1,200) '\n'],[capital; labor; pi; ra]');
+fid = fopen('sol.dat','w');
+fprintf(fid,[repmat('%26.16E',1,200) '\n'],[capital; labor; pi; rb]');
 fclose(fid);
 
 

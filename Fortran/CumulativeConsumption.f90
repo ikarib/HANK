@@ -7,7 +7,7 @@ USE mUMFPACK
 
 IMPLICIT NONE
 
-INTEGER			:: iy,iaby,it,iw(naby),nsteps,ierr
+INTEGER			:: iy,iaby,it,iw(naby),nsteps
 REAL(8) 		:: ldelta
 REAL(8), DIMENSION(nab) 	:: ldiag,lvec
 REAL(8), DIMENSION(nab,ngpy) 	:: lcvec,lccumvec,lccumvec1,ldvec,ldcumvec,ldcumvec1

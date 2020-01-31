@@ -3,6 +3,7 @@ SUBROUTINE Transition(ii)
 USE Parameters
 USE Globals
 USE Procedures
+use omp_lib
 
 IMPLICIT NONE
 INTEGER, INTENT(IN) :: ii
@@ -16,6 +17,8 @@ REAL(8), DIMENSION(nab,ngpy) 	:: lgmat,lgmat1
 REAL(8), DIMENSION(ngpa,ngpb,ngpy) 	:: lgjoint
 REAL(8), DIMENSION(ngpy,ngpy) 	:: leye,lmat
 CHARACTER	:: lstring*80
+real(8)         :: start
+start = omp_get_wtime()
 
 !identity matrix
 leye = 0.0; DO iy = 1,ngpy
@@ -133,6 +136,7 @@ DO it = Ttransition,1,-1
 	solnTRANS(it)%A = ACSR
 	solnTRANS(it)%AU = AUCSR
 	
+		
 END DO
 
 !simulate forward
@@ -169,6 +173,19 @@ DO it = 1,Ttransition
 		AUMF(iy) = tCSR_di(solnTRANS(it)%B(iy)%row-1,solnTRANS(it)%B(iy)%col-1,solnTRANS(it)%B(iy)%val) 	
 	END DO
 	!$OMP END PARALLEL DO
+
+iy=1
+open(3, FILE = trim(OutputDir) // 'BCSR.txt', STATUS = 'replace')
+do iab=1,nab
+    do iaby=solnTRANS(it)%B(iy)%row(iab),solnTRANS(it)%B(iy)%row(iab+1)-1
+	write(3,*) iab,solnTRANS(it)%B(iy)%col(iaby),solnTRANS(it)%B(iy)%val(iaby)
+    end do
+end do
+close(3)
+print *,"BCSR saved"
+call exit(1)
+
+	
 	IF(it==1 .and. (DividendFundLumpSum==0 .or. OneAssetNoCapital==1)) lgmat = solnINITSS%gmat
 	IF(it==1 .and. DividendFundLumpSum==1 .and. OneAssetNoCapital==0) THEN
 		
@@ -289,7 +306,14 @@ DO it = 1,Ttransition
 
 	IF(it>1) bgrid = lbgrid(:,it-1)
 	!PROBLEM HERE SINCE bdelta IS USED IN DISTRIBUTION STATISTICS
-
+!IF (iteratingtransition==.false.) THEN
+!!save current solution
+!WRITE(UNIT=lstring, FMT='(I4)') it
+!OPEN(3, FILE = trim(OutputDir) // 'h' // trim(lstring) // '.txt', STATUS = 'REPLACE'); 
+!CALL WriteMatrix(3,nab,ngpy,reshape(h,(/nab,ngpy/))) 
+!OPEN(3, FILE = trim(OutputDir) // 'gmat' // trim(lstring) // '.txt', STATUS = 'REPLACE'); 
+!CALL WriteMatrix(3,nab,ngpy,reshape(gmat,(/nab,ngpy/))) 
+!END IF
 	CALL DistributionStatistics
 	bgrid = holdbgrid
 	statsTRANS(it) = DistributionStatsType(Ea,Eb,Ec,Elabor,Ed,Ewage,Enetlabinc,Egrosslabinc,Enetprofinc,Egrossprofinc,Einc,Ehours,Enw,FRACa0,FRACa0close,FRACb0,FRACb0close,FRACb0a0,FRACb0aP,FRACbN,FRACnw0,FRACnw0close,FRACb0a0close, &
@@ -297,6 +321,7 @@ DO it = 1,Ttransition
 										Ea_nwQ,Eb_nwQ,Ec_nwQ,Einc_nwQ,Ea_incQ,Eb_incQ,Ec_incQ,Einc_incQ,Ec_bN,Ec_b0close,Ec_b0far)
 
 END DO
+print '("Transition Time = ",f9.3," seconds.")',omp_get_wtime()-start
 END SUBROUTINE Transition
 
 

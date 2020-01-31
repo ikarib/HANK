@@ -1,0 +1,37 @@
+CUDA-capable device count: 1
+GPU Device #0: Tesla P100-PCIE-16GB
+Simulation paths: 16777216
+Grid size: 1024
+
+    At the return from NEWUOA     Number of function values =   177
+    Least value of F =  3.140092463859090E-03         The corresponding X is:
+    -3.457974E+00  -8.098529E+00   1.005409E+00   7.729185E+00  -1.240333E+00
+    -6.280485E+00
+ IterOpt=         164
+
+Time per function evaluation (ms.): 871.975525
+
+Final objective function value: 0.00314009246385909
+
+The returned solution is:
+ lambda: 0.0610639202533114  0.000607787238949657
+ sigma:  1.46424141234342  1.99912078203364
+ delta:  0.224378094705302  0.00186899227525396
+
+ Moment:      Target:	Model:
+ MeanLogY     nan	2.81016377256577
+ VarLogY      0.76	0.760188661839355
+ SkewLogY     nan	0.158495874532604
+ KurtLogY     nan	6.0801193179502
+ MeanD1LogY   nan	0.000220828955488388
+ VarD1LogY    0.217	0.215119709597141
+ SkewD1LogY   nan	0.612101536001884
+ KurtD1LogY   13.377	13.3470565941683
+ MeanD5LogY   nan	7.16753371161255e-05
+ VarD5LogY    0.437	0.438988350260263
+ SkewD5LogY   nan	0.0192255151536491
+ KurtD5LogY   8.782	8.768017936072
+ FracD1Less5  nan	0.422915399074554
+ FracD1Less10 0.51	0.52412712574005
+ FracD1Less20 0.68	0.649562358856201
+ FracD1Less50 0.85	0.836043357849121

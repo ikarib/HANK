@@ -1,0 +1,46 @@
+CUDA-capable device count: 4
+GPU Device #0: GeForce GTX TITAN
+Simulation paths: 4194304
+Grid size: 256
+GPU Device #1: GeForce GTX TITAN
+Simulation paths: 4194304
+Grid size: 256
+GPU Device #2: GeForce GTX TITAN
+Simulation paths: 4194304
+Grid size: 256
+GPU Device #3: GeForce GTX TITAN
+Simulation paths: 4194304
+Grid size: 256
+
+    At the return from NEWUOA     Number of function values =   137
+    Least value of F =  3.143683713165135E-03         The corresponding X is:
+    -3.454467E+00  -8.078329E+00   9.974032E-01   6.099177E+00  -1.241526E+00
+    -6.266742E+00
+ IterOpt=         128
+
+Time per function evaluation (ms.): 2137.872070
+
+Final objective function value: 0.00314368371316513
+
+The returned solution is:
+ lambda: 0.0612718738316162  0.000620185367153569
+ sigma:  1.46109542655874  1.99552062832716
+ delta:  0.224170456110975  0.00189480586198528
+
+ Moment:      Target:   Model:
+ MeanLogY     -nan(ind) 2.81018230708364
+ VarLogY      0.76      0.760124425638647
+ SkewLogY     -nan(ind) 0.154171141428229
+ KurtLogY     -nan(ind) 6.06617883442295
+ MeanD1LogY   -nan(ind) -5.35169225354324e-05
+ VarD1LogY    0.217     0.215097949977128
+ SkewD1LogY   -nan(ind) 0.599345437782091
+ KurtD1LogY   13.377    13.3631584406993
+ MeanD5LogY   -nan(ind) -0.000109063248800638
+ VarD5LogY    0.437     0.439090769037831
+ SkewD5LogY   -nan(ind) 0.0141456555549243
+ KurtD5LogY   8.782     8.7772224101492
+ FracD1Less5  -nan(ind) 0.422076642513275
+ FracD1Less10 0.51      0.523452520370484
+ FracD1Less20 0.68      0.649027407169342
+ FracD1Less50 0.85      0.835959076881408

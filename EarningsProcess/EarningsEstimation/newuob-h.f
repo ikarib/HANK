@@ -354,7 +354,7 @@ C
       END IF
       if (NF.eq.1) then
         iteropt=1
-		FBEG=F !added by greg
+C		FBEG=F !added by greg
       else
         if (F.le.FOPT) iteropt = NF
       endif

@@ -17,8 +17,8 @@ end
 
 OutputFileIRF = [OutputDir,'IRF_',IRFDir,'/NOFS'];
 SaveIRFOutput(irf,OutputFileIRF)
+checkIRF(irf,['TRANS/IRF_',IRFDir,'/NOFS/STICKY/'])
 
-%%
 if DoPriceExperiments
     for ipe = 1:15
         if SolveStickyPriceTransition
@@ -26,7 +26,11 @@ if DoPriceExperiments
         
             equmTRANS = struct;
             for f = fields(equmINITSS)'
-                equmTRANS.(f{1}) = repmat(equmINITSS.(f{1}),1,Ttransition);
+                if any(strcmp(f{1},{'borrwedge','fundlev','elast','tfp','caputil','labtax','divrate','illassetdrop','govbond','govexp'}))
+                    equmTRANS.(f{1}) = equmINITSS.(f{1});
+                else
+                    equmTRANS.(f{1}) = repmat(equmINITSS.(f{1}),1,Ttransition);
+                end
             end
 
             switch ipe
@@ -86,7 +90,7 @@ if DoPriceExperiments
 
                 case 13 % change only proportional labor tax
                     equmTRANS.labtax = irf.equmSTICKY.labtax;
-                    equmTRANS.netwage = equmINITSS.wage*(1-irf.equmSTICKY.labtax);
+                    equmTRANS.netwage = repmat(equmINITSS.wage*(1-irf.equmSTICKY.labtax),1,Ttransition);
 
                 case 14 % change rb, rborr, and change ra by same amount as rb, and discount eqm profits at implied ra
                     equmTRANS.rb = irf.equmSTICKY.rb;
@@ -134,6 +138,7 @@ if DoPriceExperiments
 
         OutputFileIRF = [OutputDir,'IRF_',IRFDir,'/PE',num2str(ipe)];
         SaveIRFOutput(irfpriceexp,OutputFileIRF)
+        checkIRF(irfpriceexp,['TRANS/IRF_',IRFDir,'/PE',num2str(ipe),'/STICKY/'])
     end    
 end
 

@@ -1,7 +1,8 @@
 if Display; fprintf('Saving output to disk\n'); end
 
-% grids
-save([OutputDir,'grids'],'agrid','bgrid','ygrid','ydist','adelta','bdelta')
+%% Grids
+save([OutputDir,'Steadystate_workspace'],'ngpa','agrid','ngpb','bgrid','ngpy','ygrid',...
+    'ydist','adelta','bdelta')
 
 % initial steady state summary stats
 fid = fopen(fullfile(OutputDir,'InitialSteadyStateParameters.txt'),'w');

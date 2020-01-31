@@ -20,6 +20,7 @@ IF(Display>=1 .and. stickytransition==.true.) write(*,*)' Solving for sticky pri
 !forward guidance time
 itfg = MINLOC(cumdeltatrans, 1, MASK = cumdeltatrans>=ForwardGuideShockQtrs)
 
+
 !guess capital demand and liquid return
 
 !construct sequence of guesses of capital: assume log linear in capital (constant if a temporary transition)
@@ -32,11 +33,6 @@ END DO
 !construct sequence of guesses of Rb
 equmTRANS(:)%pi = equmINITSS%pi
 
-!load previous solution
-!OPEN(3, FILE = trim(OutputDir) // '../sol.dat', STATUS = 'OLD'); 
-!READ(3,'(200G26.15)') equmTRANS(:)%capital,equmTRANS(:)%labor,equmTRANS(:)%pi,equmTRANS(:)%ra
-!CLOSE(3)
-
 IF(forwardguide==.false.) THEN
 	equmTRANS(:)%rnom = equmINITSS%rnom +phitaylor*equmTRANS(:)%pi + equmTRANS(:)%mpshock
 			
@@ -45,6 +41,11 @@ ELSE IF(forwardguide==.true. ) THEN
 	equmTRANS(itfg:Ttransition)%rnom = equmINITSS%rnom +phitaylor*equmTRANS(itfg:Ttransition)%pi + equmTRANS(itfg:Ttransition)%mpshock
 END IF	
 equmTRANS(:)%rb = equmTRANS(:)%rnom - equmTRANS(:)%pi
+!load previous solution
+OPEN(3, FILE = trim(OutputDir) // '../sol.dat', STATUS = 'OLD'); 
+READ(3,'(200G26.15)') equmTRANS(:)%capital,equmTRANS(:)%labor,equmTRANS(:)%pi,equmTRANS(:)%rb
+CLOSE(3)
+
 equmTRANS(:)%rborr = equmTRANS(:)%rb + equmTRANS(:)%borrwedge
 
 !world bond
@@ -113,6 +114,7 @@ IF(DistributeProfitsInProportion==1) equmTRANS(:)%dividend  = profdistfrac*equmT
 
 IF(DividendFundLumpSum==1) equmTRANS(:)%divrate = 0.0
 IF(DividendFundLumpSum==0) equmTRANS(:)%divrate = equmTRANS(:)%dividend/equmTRANS(:)%capital
+
 
 equmTRANS(:)%ra = (equmTRANS(:)%rcapital*equmTRANS(:)%caputil - equmTRANS(:)%deprec + equmTRANS(:)%divrate - equmTRANS(:)%fundlev*equmTRANS(:)%rb) / (1.0-equmTRANS(:)%fundlev)
 
@@ -208,22 +210,12 @@ WRITE(UNIT=lstring, FMT='(I4)') ii
 OPEN(3, FILE = trim(OutputDir) // 'sol' // trim(lstring) // '.txt', STATUS = 'REPLACE'); 
 WRITE(3,'(200E26.15E3)') equmTRANS(:)%borrwedge,equmTRANS(:)%fundlev,equmTRANS(:)%elast,equmTRANS(:)%tfp,equmTRANS(:)%caputil,equmTRANS(:)%labor,equmTRANS(:)%labtax,equmTRANS(:)%ra,equmTRANS(:)%mpshock,equmTRANS(:)%capital,equmTRANS(:)%pi,equmTRANS(:)%rnom,equmTRANS(:)%rb,equmTRANS(:)%rborr,equmTRANS(:)%worldbond,equmTRANS(:)%fundbond,equmTRANS(:)%mc,equmTRANS(:)%gap,equmTRANS(:)%tfpadj,equmTRANS(:)%KNratio,equmTRANS(:)%wage,equmTRANS(:)%netwage,equmTRANS(:)%output,equmTRANS(:)%KYratio,equmTRANS(:)%rcapital,equmTRANS(:)%priceadjust,equmTRANS(:)%profit,equmTRANS(:)%deprec,equmTRANS(:)%investment,equmTRANS(:)%dividend,equmTRANS(:)%divrate,equmTRANS(:)%equity,equmTRANS(:)%illassetdrop,equmTRANS(:)%govbond,equmTRANS(:)%govexp,equmTRANS(:)%taxrev,equmTRANS(:)%lumptransfer,equmTRANS(:)%bond
 CLOSE(3)
-
-!WRITE(UNIT=lstring, FMT='(I4)') ii
-!OPEN(3, FILE = trim(OutputDir) // 'capital' // trim(lstring) // '.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,1,Ttransition,equmTRANS(:).capital)
-!OPEN(3, FILE = trim(OutputDir) // 'labor' // trim(lstring) // '.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,1,Ttransition,equmTRANS(:)%labor)
-!OPEN(3, FILE = trim(OutputDir) // 'mc' // trim(lstring) // '.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,1,Ttransition,equmTRANS(:)%mc)
-!OPEN(3, FILE = trim(OutputDir) // 'ra' // trim(lstring) // '.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,1,Ttransition,equmTRANS(:).ra)
-!OPEN(3, FILE = trim(OutputDir) // 'rb' // trim(lstring) // '.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,1,Ttransition,equmTRANS(:).rb)
-!OPEN(3, FILE = trim(OutputDir) // 'pi' // trim(lstring) // '.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,1,Ttransition,equmTRANS(:).pi)
 	!solve for transtion
 	CALL Transition(ii)
 	
 	!computed implied equilibrium quantities
 	lbond = statsTRANS(:)%Eb
 	lcapital = (statsTRANS(:)%Ea - equmTRANS(:)%equity)/ (1.0 - equmTRANS(:)%fundlev)
-!OPEN(3, FILE = trim(OutputDir) // 'lbond' // trim(lstring) // '.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,1,Ttransition,lbond)
-!OPEN(3, FILE = trim(OutputDir) // 'lcapital' // trim(lstring) // '.txt', STATUS = 'replace'); CALL WriteMatrixLong(3,1,Ttransition,lcapital)
 	IF(ConvergenceRelToOutput==0) THEN
 		ldiffK= maxval(abs(lcapital/equmTRANS(:)%capital - 1.0))
 		ldiffB= maxval(abs(lbond/equmTRANS(:)%bond - 1.0))
@@ -236,22 +228,22 @@ CLOSE(3)
 	IF (Display>=1) write(*,*) '   household bond',lbond(2), ',  target bond',equmTRANS(2)%bond
 
 	!update capital and interest rate
+	lfundbond = -lcapital*equmTRANS(:)%fundlev
+	lworldbond = -lbond - equmTRANS(:)%govbond - lfundbond
+
+	it = Ttransition
+	CALL WorldBondInverse2( (equmFINALSS%worldbond-lworldbond(it))/(bondadjust*deltatransvec(it)) + lworldbond(it) &
+						,lrb(it),equmINITSS%worldbond,equmINITSS%rb,bondelast)
+	DO it = Ttransition-1,1,-1
+		CALL WorldBondInverse2( (lworldbond(it+1)-lworldbond(it))/(bondadjust*deltatransvec(it)) + lworldbond(it) &
+							,lrb(it),equmINITSS%worldbond,equmINITSS%rb,bondelast)
+	END DO
+
 	IF (ii<maxitertranssticky .and. max(ldiffK,ldiffB)>toltransition ) THEN
 		CALL PartialUpdate(Ttransition-1,stepstickytransK,equmTRANS(2:Ttransition)%capital,lcapital(2:Ttransition),lcapital1(2:Ttransition))
 		lcapital1(1)  = equmTRANS(1)%capital
 		equmTRANS(:)%capital = lcapital1
 		
-		lfundbond = -lcapital*equmTRANS(:)%fundlev
-		lworldbond = -lbond - equmTRANS(:)%govbond - lfundbond
-
-		it = Ttransition
-		CALL WorldBondInverse2( (equmFINALSS%worldbond-lworldbond(it))/(bondadjust*deltatransvec(it)) + lworldbond(it) &
-							,lrb(it),equmINITSS%worldbond,equmINITSS%rb,bondelast)
-		DO it = Ttransition-1,1,-1
-			CALL WorldBondInverse2( (lworldbond(it+1)-lworldbond(it))/(bondadjust*deltatransvec(it)) + lworldbond(it) &
-								,lrb(it),equmINITSS%worldbond,equmINITSS%rb,bondelast)
-		END DO
-
 		CALL PartialUpdate(Ttransition,stepstickytransB,equmTRANS(:)%rb,lrb,lrb1)
 		equmTRANS(:)%rb = lrb1
 			

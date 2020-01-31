@@ -4,7 +4,7 @@ gr drop _all;
 
 set scheme s1color;
 
-global OutputDir ~/EarningsProcess/EarningsEstimation/earnings_estimation_paper;
+global OutputDir ~/HANK_replication/EarningsProcess/EarningsEstimation/earnings_estimation_paper;
 local nbin1 = 100;
 local nbin2 = 100;
 

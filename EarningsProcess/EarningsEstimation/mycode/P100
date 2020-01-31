@@ -1,0 +1,132 @@
+
+=======================================
+          Commercial License
+         Artelys Knitro 11.0.1
+=======================================
+
+ objective fun: 0.115708278967676
+ objective fun: 0.116927916671083
+Knitro performing finite-difference gradient computation with 1 thread.
+ objective fun: 0.175304752669827
+ objective fun: 0.151659675751561
+ objective fun: 0.106936317923621
+ objective fun: 0.127689012783245
+ objective fun: 0.123807909484336
+ objective fun: 0.178836885137481
+Knitro presolve eliminated 0 variables and 0 constraints.
+
+hessopt:                 7
+The problem is identified as unconstrained least-squares.
+Knitro changing algorithm from AUTO to 1.
+Knitro changing bar_initpt from AUTO to 3.
+Knitro changing bar_murule from AUTO to 4.
+Knitro changing bar_penaltycons from AUTO to 1.
+Knitro changing bar_penaltyrule from AUTO to 2.
+Knitro changing bar_switchrule from AUTO to 1.
+Knitro changing linesearch from AUTO to 1.
+Knitro changing linsolver from AUTO to 2.
+
+Problem Characteristics                                 (   Presolved)
+-----------------------
+Objective goal:  Minimize
+Objective type:  general
+Number of variables:                                  6 (           6)
+    bounded below only:                               0 (           0)
+    bounded above only:                               0 (           0)
+    bounded below and above:                          0 (           0)
+    fixed:                                            0 (           0)
+    free:                                             6 (           6)
+Number of residuals:                                  8 (           8)
+Number of nonzeros in Jacobian:                      48 (          48)
+Number of nonzeros in Hessian:                       21 (          21)
+
+  Iter      Objective      FeasError   OptError    ||Step||    CGits 
+--------  --------------  ----------  ----------  ----------  -------
+       0    4.685942e-02   0.000e+00
+ objective fun: 0.170995508340457
+ objective fun: 0.126194613214706
+ objective fun: 0.136839170877068
+ objective fun: 0.142997140844689
+ objective fun: 0.143761487158289
+ objective fun: 0.11054660682966
+ objective fun: 0.111064720622319
+ objective fun: 0.126743640758259
+ objective fun: 0.14189054221504
+ objective fun: 0.1328722958123
+ objective fun: 0.152485436286475
+ objective fun: 0.139963025701196
+ objective fun: 0.132985055815108
+ objective fun: 0.110046347873105
+ objective fun: 0.117605347755239
+ objective fun: 0.121108514816059
+ objective fun: 0.129782795164962
+ objective fun: 0.13768914836129
+ objective fun: 0.145381123586335
+ objective fun: 0.131059057323768
+ objective fun: 0.117381021152649
+ objective fun: 0.128473675679634
+ objective fun: 0.142399359601155
+ objective fun: 0.127586389346336
+ objective fun: 0.142411811599573
+ objective fun: 0.110286598853661
+ objective fun: 0.112871723298082
+ objective fun: 0.123472375177828
+ objective fun: 0.153317923908697
+ objective fun: 0.107723717075332
+ objective fun: 0.140663154132475
+ objective fun: 0.10405837184795
+ objective fun: 0.151246852869752
+ objective fun: 0.117633297249646
+ objective fun: 0.138819832452844
+ objective fun: 0.149095933211396
+ objective fun: 0.114656396456383
+ objective fun: 0.109434221288039
+ objective fun: 0.126159858468716
+ objective fun: 0.0982093328644005
+ objective fun: 0.15798980890659
+ objective fun: 0.117499747600742
+ objective fun: 0.107071261262197
+ objective fun: 0.150852672149574
+ objective fun: 0.109216570281405
+ objective fun: 0.140862425082566
+ objective fun: 0.140925634981536
+ objective fun: 0.132724969303385
+ objective fun: 0.127916009020473
+ objective fun: 0.121532443685602
+ objective fun: 0.133545109052573
+ objective fun: 0.112557148321216
+ objective fun: 0.134561300120342
+ objective fun: 0.128357201910318
+ objective fun: 0.12847649899707
+ objective fun: 0.137383527920618
+ objective fun: 0.134250967810531
+ objective fun: 0.140127071615489
+ objective fun: 0.134349793671235
+ objective fun: 0.122570510425566
+ objective fun: 0.124718025686129
+ objective fun: 0.141126273908422
+ objective fun: 0.121302558499138
+
+EXIT: Primal feasible solution estimate cannot be improved; desired accuracy
+      in dual feasibility could not be achieved.
+
+Final Statistics
+----------------
+Final objective value               =   5.15000874445290e-02
+Final feasibility error (abs / rel) =   0.00e+00 / 0.00e+00
+Final optimality error  (abs / rel) =   1.30e+06 / 1.30e+06
+# of iterations                     =          4 
+# of CG iterations                  =         32 
+# of residual evaluations           =         71
+# of Jacobian evaluations           =          0
+Total program time (secs)           =       0.22344 (     0.219 CPU time)
+Time spent in evaluations (secs)    =       0.19290
+
+===============================================================================
+
+Knitro failed to solve the problem, status = -102
+The returned solution is:
+ lambda: 0.0800000032074846  0.00699999674780665
+ sigma:  1.59999995984719  1.60000000762485
+ delta:  0.699999999404339  0.00999999951130139
+ objective fun: 0.051500087444529

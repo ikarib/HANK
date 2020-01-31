@@ -3,6 +3,7 @@ SUBROUTINE SetParameters
 USE Parameters
 USE Globals
 USE random
+!USE Procedures
 
 IMPLICIT NONE
 
@@ -46,22 +47,22 @@ MatchFracD1Less10 = 1
 MatchFracD1Less20 = 1
 MatchFracD1Less50 = 1
 
-TargetVarLogY 	 = 0.7
-TargetVarD1LogY	 = 0.23	
-TargetSkewD1LogY = -1.35
-TargetKurtD1LogY = 17.8
-TargetVarD5LogY  = 0.46
-TargetSkewD5LogY = -1.01
-TargetKurtD5LogY = 11.55
-TargetFracD1Less5 = 0.35
-TargetFracD1Less10 = 0.54
-TargetFracD1Less20 = 0.71
-TargetFracD1Less50 = 0.86
+TargetVarLogY 	 = 0.760
+TargetVarD1LogY	 = 0.217
+TargetSkewD1LogY = -0.587
+TargetKurtD1LogY = 13.377
+TargetVarD5LogY  = 0.437
+TargetSkewD5LogY = -0.378
+TargetKurtD5LogY = 8.782
+TargetFracD1Less5 = 0.34
+TargetFracD1Less10 = 0.51
+TargetFracD1Less20 = 0.68
+TargetFracD1Less50 = 0.85
 
 ndfls = 3
 rhobeg = 5.0
 rhoend = 1.0D-4
-iprint = 4
+iprint = 3
 lambdamax = 2.0	!jump process cant arrive more frequently than quarterly on average
 sigmamax = 2.0
 zetamax = 1000.0
@@ -70,6 +71,18 @@ deltamax = 1.0
 
 CALL system ("mkdir -p " // trim(OutputDir))	
 
+allocate(y1jumprand(nsim,Tsim))
+allocate(y2jumprand(nsim,Tsim))
+allocate(y1rand(nsim,Tsim))
+allocate(y2rand(nsim,Tsim))
+allocate(ysim(nsim,Tsim))
+allocate(ylevsim(nsim,Tsim))
+allocate(y1sim(nsim,Tsim))
+allocate(y2sim(nsim,Tsim))
+allocate(y1jumpI(nsim,Tsim))
+allocate(y2jumpI(nsim,Tsim))
+allocate(yannsim(nsim,5))
+allocate(yannlevsim(nsim,5))
 
 !set random seed
 isize = 2
@@ -90,4 +103,10 @@ ELSE IF (UseDoubleParetoDist==1) THEN
 	CALL RANDOM_NUMBER(y1rand)
 	CALL RANDOM_NUMBER(y2rand)
 END IF
+
+!OPEN(3, FILE = trim(OutputDir) // 'yjumprand.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,nsim,Tsim*2,(/y1jumprand,y2jumprand/));
+!OPEN(3, FILE = trim(OutputDir) // 'yrand.txt', STATUS = 'replace'); 
+!CALL WriteMatrix(3,nsim,Tsim*2,(/y1rand,y2rand/));
+
 END SUBROUTINE SetParameters

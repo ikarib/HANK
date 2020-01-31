@@ -10,10 +10,13 @@ real(8) 			:: TargetVarLogY,TargetVarD1LogY,TargetSkewD1LogY,TargetKurtD1LogY,Ta
 integer 			:: EstimateLambda1,EstimateZeta1P,EstimateZeta1N,EstimateLambda2,EstimateZeta2P,EstimateZeta2N,EstimateRho1,EstimateRho2
 integer 			:: EstimateSigma1,EstimateSigma2,EstimateDelta1,EstimateDelta2
 
+real(8), dimension(:,:),allocatable	:: y1jumprand,y2jumprand,y1rand,y2rand,ysim,ylevsim,y1sim,y2sim
+integer, dimension(:,:),allocatable	:: y1jumpI,y2jumpI
+real(8), dimension(:,:),allocatable	:: yannsim,yannlevsim
 
-real(8), dimension(nsim,Tsim)	:: y1jumprand,y2jumprand,y1rand,y2rand,ysim,ylevsim,y1sim,y2sim
-integer, dimension(nsim,Tsim)	:: y1jumpI,y2jumpI
-real(8), dimension(nsim,5)		:: yannsim,yannlevsim
+!real(8), dimension(nsim,Tsim)	:: y1jumprand,y2jumprand,y1rand,y2rand,ysim,ylevsim,y1sim,y2sim
+!integer, dimension(nsim,Tsim)	:: y1jumpI,y2jumpI
+!real(8), dimension(nsim,5)		:: yannsim,yannlevsim
 
 real(8)		:: lambda1,zeta1P,zeta1N,lambda2,zeta2P,zeta2N,rho1,rho2,sigma1,sigma2,delta1,delta2
 real(8)		:: lambda1guess,zeta1guess,lambda2guess,zeta2guess,rho1guess,rho2guess,sigma1guess,sigma2guess,delta1guess,delta2guess

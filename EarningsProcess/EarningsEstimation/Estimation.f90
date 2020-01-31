@@ -7,7 +7,7 @@ USE Procedures
 IMPLICIT NONE
 
 INTEGER	   				:: ip,j,npt
-REAL(8), ALLOCATABLE	:: x(:),w(:)
+REAL(8), ALLOCATABLE	:: x(:),w(:),f(:)
 
 
 !set up parameters
@@ -97,6 +97,7 @@ IF (MatchFracD1Less50 == 1)	nmoments = nmoments+1
 
 !dfls estimation
 ALLOCATE(x(nparam))
+ALLOCATE(f(nmoments))
 x = paramguess*paramscale
 npt = 2*nparam+1
 IF(ALLOCATED(w)) DEALLOCATE(w)
@@ -107,7 +108,8 @@ OPEN(4, FILE = trim(OutputDir) // 'iterations' //   '.txt', STATUS = 'replace')
 DO j = 1,ndfls
 	write(4,*) '********************************** '
 	write(4,*) 'DFLS/DFBOLS MINIMIZATION ATTEMPT ', j
- 	CALL NEWUOA_H(nparam,npt,x,rhobeg,rhoend,iprint,maxfun,w,nmoments)
+	CALL NEWUOA_H(nparam,npt,x,rhobeg,rhoend,iprint,maxfun,w,nmoments)
+	call dfovec(nparam,nmoments,x,f)
 	write(4,*) '********************************** '
 END DO
 CLOSE(4)

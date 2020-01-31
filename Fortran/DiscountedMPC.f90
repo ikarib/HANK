@@ -117,6 +117,7 @@ DO WHILE (ldiff>discMPCtol .and. it<maxiter_discMPC)
 
 END DO
 
+ 
 !SUBSTITUTION EFFECT: TWO ASSET: effective discounting of (MPC + (1+ chi'(d)*MPD_B-MPD_A) and decay leta
 !have to iterate because need to solve for all y points simultaneously
 
@@ -163,6 +164,7 @@ DO WHILE (ldiff>discMPCtol .and. it<maxiter_discMPC)
 	it = it+1
 
 END DO
+
 
 !WEALTH EFFECT: ONE ASSET: effective discounting of xi and decay leta
 !have to iterate because need to solve for all y points simultaneously
@@ -211,6 +213,7 @@ DO WHILE (ldiff>discMPCtol .and. it<maxiter_discMPC)
 
 END DO
 
+ 
 !WEALTH EFFECT: TWO ASSET: effective discounting of (MPC + (1+ chi'(d)*MPD_B-MPD_A) and decay leta
 !have to iterate because need to solve for all y points simultaneously
 
@@ -257,6 +260,7 @@ DO WHILE (ldiff>discMPCtol .and. it<maxiter_discMPC)
 	it = it+1
 
 END DO
+
 
 !save functions
 !$OMP PARALLEL DO

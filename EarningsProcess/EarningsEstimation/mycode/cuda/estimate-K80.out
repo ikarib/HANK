@@ -1,0 +1,46 @@
+CUDA-capable device count: 4
+GPU Device #0: Tesla K80
+Simulation paths: 4194304
+Grid size: 256
+GPU Device #1: Tesla K80
+Simulation paths: 4194304
+Grid size: 256
+GPU Device #2: Tesla K80
+Simulation paths: 4194304
+Grid size: 256
+GPU Device #3: Tesla K80
+Simulation paths: 4194304
+Grid size: 256
+
+    At the return from NEWUOA     Number of function values =   131
+    Least value of F =  3.149073994163288E-03         The corresponding X is:
+    -3.454586E+00  -8.058596E+00   9.990675E-01   4.822344E+00  -1.238793E+00
+    -6.261129E+00
+ IterOpt=         124
+
+Total time (sec.): 1.003902
+
+Final objective function value: 0.00314907399416329
+
+The returned solution is:
+ lambda: 0.0612647692291653  0.000632541196340669
+ sigma:  1.46175040614709  1.98403270206577
+ delta:  0.224646090231583  0.001905450931043
+
+ Moment:      Target:	Model:
+ MeanLogY     nan	2.81018447743969
+ VarLogY      0.76	0.760169476845768
+ SkewLogY     nan	0.154321903982829
+ KurtLogY     nan	6.04302219269016
+ MeanD1LogY   nan	-5.40692177343455e-05
+ VarD1LogY    0.217	0.215110178511722
+ SkewD1LogY   nan	0.599657652283715
+ KurtD1LogY   13.377	13.350210093317
+ MeanD5LogY   nan	-0.000114254268438923
+ VarD5LogY    0.437	0.4389446331044
+ SkewD5LogY   nan	0.0129651444781678
+ KurtD5LogY   8.782	8.77035837369837
+ FracD1Less5  nan	0.422360777854919
+ FracD1Less10 0.51	0.523631095886231
+ FracD1Less20 0.68	0.649118065834044
+ FracD1Less50 0.85	0.835939228534698

@@ -1,172 +1,150 @@
-equmTRANS.rborr = equmTRANS.rb + equmTRANS.borrwedge;
+if iteratingtransition
+    equmTRANS.rborr = equmTRANS.rb + equmTRANS.borrwedge;
 
-% world bond
-equmTRANS.worldbond = [equmINITSS.worldbond WorldBondFunction2(equmTRANS.rb(1:Ttransition-1),equmINITSS.worldbond,equmINITSS.rb,bondelast)];
-for it = 1:Ttransition-1
-    equmTRANS.worldbond(it+1) = equmTRANS.worldbond(it) + bondadjust*deltatransvec(it)*(equmTRANS.worldbond(it+1)-equmTRANS.worldbond(it));
-end
-
-% fund bond
-equmTRANS.fundbond = -equmTRANS.capital.*equmTRANS.fundlev;
-
-% solve phillips curve backwards for marginal costs
-switch FirmDiscountRate
-    case 1; lfirmdiscount = equmTRANS.rho;
-    case 2; lfirmdiscount = equmINITSS.rb;
-    case 3; lfirmdiscount = equmINITSS.ra;
-    case 4; lfirmdiscount = equmTRANS.rb;
-    case 5; lfirmdiscount = equmINITSS.ra;
-end
-
-% marginal costs
-equmTRANS.mc = (lfirmdiscount-diff([equmTRANS.tfp equmFINALSS.tfp])./(equmTRANS.tfp.*deltatransvec) ...
-    - alpha*diff([equmTRANS.capital equmFINALSS.capital])./(equmTRANS.capital.*deltatransvec) ...
-    - alpha*diff([equmTRANS.caputil equmFINALSS.caputil])./(equmTRANS.caputil.*deltatransvec) ...
-    - (1-alpha)*diff([equmTRANS.labor equmFINALSS.labor])./(equmTRANS.labor.*deltatransvec) ) ...
-    .* [equmTRANS.pi(2:Ttransition) equmFINALSS.pi] * theta./ equmTRANS.elast ...
-    + (equmTRANS.elast-1)./equmTRANS.elast - (diff([equmTRANS.pi equmFINALSS.pi])./deltatransvec) * theta./ equmTRANS.elast;
-
-equmTRANS.gap = equmTRANS.elast.*equmTRANS.mc ./ (equmTRANS.elast-1) - 1;
-equmTRANS.tfpadj = (equmTRANS.tfp.^((1+utilelast)/utilelastalpha)) .* (equmTRANS.mc*alpha./equmINITSS.rcapital).^(alpha*utilelast/utilelastalpha);
-equmTRANS.KNratio = equmTRANS.capital./equmTRANS.labor;
-equmTRANS.wage = equmTRANS.mc*(1-alpha).* equmTRANS.tfpadj .* equmTRANS.KNratio.^(alpha/utilelastalpha);
-equmTRANS.netwage = (1-equmTRANS.labtax).*equmTRANS.wage;
-equmTRANS.caputil = ((equmTRANS.mc*alpha.*equmTRANS.tfp/equmINITSS.rcapital) .* equmTRANS.KNratio.^(alpha-1)) .^ (utilelast/utilelastalpha);
-equmTRANS.output = equmTRANS.tfpadj .* equmTRANS.capital.^(alpha/utilelastalpha) .* equmTRANS.labor.^((1-alpha)*(1+utilelast)/utilelastalpha);
-equmTRANS.KYratio = (equmTRANS.KNratio.^(1-alpha)) ./ (equmTRANS.tfp.*equmTRANS.caputil.^alpha);
-equmTRANS.rcapital = (equmINITSS.rcapital.^utilelast * equmTRANS.mc * alpha ./ equmTRANS.KYratio) .^ (1/(1+utilelast));
-equmTRANS.priceadjust = theta/2*equmTRANS.pi.^2.*equmTRANS.capital./equmTRANS.KYratio;
-equmTRANS.profit = (1-equmTRANS.mc).*equmTRANS.capital./equmTRANS.KYratio - equmTRANS.priceadjust;
-
-equmTRANS.deprec = equmINITSS.deprec + (utilelast*equmINITSS.rcapital/(1+ utilelast)) .* ((equmTRANS.rcapital/equmINITSS.rcapital).^(1+utilelast) -1);
-
-% solve backward for investment
-equmTRANS.investment = diff([equmTRANS.capital equmFINALSS.capital])./deltatransvec + equmTRANS.deprec.*equmTRANS.capital;
-
-% dividends and illiquid return
-equmTRANS.dividend = equmTRANS.profit*(1-corptax);
-if DistributeProfitsInProportion; equmTRANS.dividend = profdistfrac*equmTRANS.dividend; end
-
-if DividendFundLumpSum; equmTRANS.divrate = 0;
-else; equmTRANS.divrate = equmTRANS.dividend./equmTRANS.capital; end
-
-equmTRANS.ra = (equmTRANS.rcapital.*equmTRANS.caputil - equmTRANS.deprec + equmTRANS.divrate - equmTRANS.fundlev.*equmTRANS.rb) ./ (1-equmTRANS.fundlev);
-
-% value of equity component of investmemt fund
-if DividendFundLumpSum
-    it = Ttransition;
-    equmTRANS.equity(it) = (equmFINALSS.equity + equmTRANS.dividend(it)*deltatransvec(it)) / (1+deltatransvec(it)*equmTRANS.ra(it));
-    for it = Ttransition-1:-1:1
-        equmTRANS.equity(it) = (equmTRANS.equity(it+1) + equmTRANS.dividend(it)*deltatransvec(it)) / (1+deltatransvec(it)*equmTRANS.ra(it));
+    % world bond
+    equmTRANS.worldbond = [equmINITSS.worldbond WorldBondFunction2(equmTRANS.rb(1:Ttransition-1),equmINITSS.worldbond,equmINITSS.rb,bondelast)];
+    for it = 1:Ttransition-1
+        equmTRANS.worldbond(it+1) = equmTRANS.worldbond(it) + bondadjust*deltatransvec(it)*(equmTRANS.worldbond(it+1)-equmTRANS.worldbond(it));
     end
-    equmTRANS.illassetdrop = ((1-equmTRANS.fundlev(1))*equmTRANS.capital(1) + equmTRANS.equity(1)) / ((1-equmINITSS.fundlev)*equmINITSS.capital + equmINITSS.equity);
-else
-    equmTRANS.equity = 0;
-    equmTRANS.illassetdrop = 1;
-end
 
-% government budget constraint,expenditures and tax rates
-switch AdjGovBudgetConstraint
-    case 1 % adjust spending
-        equmTRANS.govbond = equmINITSS.govbond;
-        equmTRANS.labtax = equmINITSS.labtax;
-        equmTRANS.lumptransfer = equmINITSS.lumptransfer;
+    % fund bond
+    equmTRANS.fundbond = -equmTRANS.capital.*equmTRANS.fundlev;
 
-        equmTRANS.taxrev = equmTRANS.labtax*equmTRANS.wage*equmTRANS.labor - equmTRANS.lumptransfer + corptax*equmTRANS.profit;
-        if DistributeProfitsInProportion && TaxHHProfitIncome; equmTRANS.taxrev = equmTRANS.taxrev + equmTRANS.labtax*(1-profdistfrac)*equmTRANS.profit*(1-corptax); end
+    % solve phillips curve backwards for marginal costs
+    switch FirmDiscountRate
+        case 1; lfirmdiscount = equmTRANS.rho;
+        case 2; lfirmdiscount = equmINITSS.rb;
+        case 3; lfirmdiscount = equmINITSS.ra;
+        case 4; lfirmdiscount = equmTRANS.rb;
+        case 5; lfirmdiscount = equmTRANS.ra;
+    end
 
-        equmTRANS.govexp = equmTRANS.taxrev + equmTRANS.rb*equmINITSS.govbond;
+    % marginal costs
+    equmTRANS.mc = max(lminmargcost,(lfirmdiscount-diff([equmTRANS.tfp equmFINALSS.tfp])./(equmTRANS.tfp.*deltatransvec) ...
+        - alpha*diff([equmTRANS.capital equmFINALSS.capital])./(equmTRANS.capital.*deltatransvec) ...
+        - alpha*diff([equmTRANS.caputil equmFINALSS.caputil])./(equmTRANS.caputil.*deltatransvec) ...
+        - (1-alpha)*diff([equmTRANS.labor equmFINALSS.labor])./(equmTRANS.labor.*deltatransvec) ) ...
+        .* [equmTRANS.pi(2:Ttransition) equmFINALSS.pi] * theta./ equmTRANS.elast ...
+        + (equmTRANS.elast-1)./equmTRANS.elast - (diff([equmTRANS.pi equmFINALSS.pi])./deltatransvec) * theta./ equmTRANS.elast);
 
-    case 2 % adjust lump sum taxes
-        equmTRANS.govbond = equmINITSS.govbond;
-        equmTRANS.govexp = equmINITSS.govexp;
-        equmTRANS.labtax = equmINITSS.labtax;
-        equmTRANS.taxrev = equmTRANS.govexp - equmTRANS.rb*equmINITSS.govbond;
-        equmTRANS.lumptransfer = equmTRANS.labtax*equmTRANS.wage.*equmTRANS.labor + corptax*equmTRANS.profit + equmTRANS.rb*equmINITSS.govbond - equmTRANS.govexp;
-        if DistributeProfitsInProportion && TaxHHProfitIncome; equmTRANS.lumptransfer = equmTRANS.lumptransfer + equmTRANS.labtax*(1-profdistfrac)*equmTRANS.profit*(1-corptax); end
+    equmTRANS.gap = equmTRANS.elast.*equmTRANS.mc ./ (equmTRANS.elast-1) - 1;
+    equmTRANS.tfpadj = (equmTRANS.tfp.^((1+utilelast)/utilelastalpha)) .* (equmTRANS.mc*alpha./equmINITSS.rcapital).^(alpha*utilelast/utilelastalpha);
+    equmTRANS.KNratio = equmTRANS.capital./equmTRANS.labor;
+    equmTRANS.wage = equmTRANS.mc*(1-alpha).* equmTRANS.tfpadj .* equmTRANS.KNratio.^(alpha/utilelastalpha);
+    equmTRANS.netwage = (1-equmTRANS.labtax).*equmTRANS.wage;
+    equmTRANS.caputil = ((equmTRANS.mc*alpha.*equmTRANS.tfp/equmINITSS.rcapital) .* equmTRANS.KNratio.^(alpha-1)) .^ (utilelast/utilelastalpha);
+    equmTRANS.output = equmTRANS.tfpadj .* equmTRANS.capital.^(alpha/utilelastalpha) .* equmTRANS.labor.^((1-alpha)*(1+utilelast)/utilelastalpha);
+    equmTRANS.KYratio = (equmTRANS.KNratio.^(1-alpha)) ./ (equmTRANS.tfp.*equmTRANS.caputil.^alpha);
+    equmTRANS.rcapital = (equmINITSS.rcapital.^utilelast * equmTRANS.mc * alpha ./ equmTRANS.KYratio) .^ (1/(1+utilelast));
+    equmTRANS.priceadjust = theta/2*equmTRANS.pi.^2.*equmTRANS.capital./equmTRANS.KYratio;
+    equmTRANS.profit = (1-equmTRANS.mc).*equmTRANS.capital./equmTRANS.KYratio - equmTRANS.priceadjust;
 
-    case 3 % adjust debt
-        if GovExpConstantFracOutput; equmTRANS.govexp = equmTRANS.output*equmINITSS.govexp/equmINITSS.output;
-        else; equmTRANS.govexp = repmat(equmINITSS.govexp,1,Ttransition); end
+    equmTRANS.deprec = equmINITSS.deprec + (utilelast*equmINITSS.rcapital/(1+ utilelast)) .* ((equmTRANS.rcapital/equmINITSS.rcapital).^(1+utilelast) -1);
 
-        equmTRANS.lumptransfer = equmINITSS.lumptransfer;
-        equmTRANS.taxrev = equmTRANS.labtax*equmTRANS.wage*equmTRANS.labor - equmTRANS.lumptransfer + corptax*equmTRANS.profit;
-        if DistributeProfitsInProportion && TaxHHProfitIncome; equmTRANS.taxrev = equmTRANS.taxrev + equmTRANS.labtax*(1-profdistfrac)*equmTRANS.profit*(1-corptax); end
+    % solve backward for investment
+    equmTRANS.investment = diff([equmTRANS.capital equmFINALSS.capital])./deltatransvec + equmTRANS.deprec.*equmTRANS.capital;
 
-        % compute required increase in lumptransfer
-        lrgov = equmTRANS.rb;
-        lpvgovbc = equmFINALSS.govbond;
-        lpvlumpincr = 0;
-        for it = Ttransition:-1:1
-            lpvgovbc = (lpvgovbc + deltatransvec(it)*(equmTRANS.govexp(it) - equmTRANS.taxrev(it)))/(1+deltatransvec(it)*lrgov(it));
-            if cumdeltatrans(it)<taxincrstart; lpvlumpincr = lpvlumpincr/(1+deltatransvec(it)*lrgov(it));
-            else; lpvlumpincr = (lpvlumpincr + deltatransvec(it))/(1+deltatransvec(it)*(lrgov(it)+taxincrdecay)); end
+    % dividends and illiquid return
+    equmTRANS.dividend = equmTRANS.profit*(1-corptax);
+    if DistributeProfitsInProportion; equmTRANS.dividend = profdistfrac*equmTRANS.dividend; end
+
+    if DividendFundLumpSum; equmTRANS.divrate = 0;
+    else; equmTRANS.divrate = equmTRANS.dividend./equmTRANS.capital; end
+
+    equmTRANS.ra = (equmTRANS.rcapital.*equmTRANS.caputil - equmTRANS.deprec + equmTRANS.divrate - equmTRANS.fundlev.*equmTRANS.rb) ./ (1-equmTRANS.fundlev);
+
+    % value of equity component of investmemt fund
+    if DividendFundLumpSum
+        it = Ttransition;
+        equmTRANS.equity(it) = (equmFINALSS.equity + equmTRANS.dividend(it)*deltatransvec(it)) / (1+deltatransvec(it)*equmTRANS.ra(it));
+        for it = Ttransition-1:-1:1
+            equmTRANS.equity(it) = (equmTRANS.equity(it+1) + equmTRANS.dividend(it)*deltatransvec(it)) / (1+deltatransvec(it)*equmTRANS.ra(it));
         end
+        equmTRANS.illassetdrop = ((1-equmTRANS.fundlev(1))*equmTRANS.capital(1) + equmTRANS.equity(1)) / ((1-equmINITSS.fundlev)*equmINITSS.capital + equmINITSS.equity);
+    else
+        equmTRANS.equity = 0;
+        equmTRANS.illassetdrop = 1;
+    end
 
-        linitlumpincr = (equmINITSS.govbond-lpvgovbc) / lpvlumpincr;
-        equmTRANS.lumptransfer = equmINITSS.lumptransfer + linitlumpincr*exp(-taxincrdecay*(cumdeltatrans-taxincrstart));
-        equmTRANS.lumptransfer(cumdeltatrans<taxincrstart) = equmINITSS.lumptransfer;
+    % government budget constraint,expenditures and tax rates
+    switch AdjGovBudgetConstraint
+        case 1 % adjust spending
+            equmTRANS.govbond = equmINITSS.govbond;
+            equmTRANS.labtax = equmINITSS.labtax;
+            equmTRANS.lumptransfer = equmINITSS.lumptransfer;
 
-        equmTRANS.taxrev = equmTRANS.labtax*equmTRANS.wage*equmTRANS.labor - equmTRANS.lumptransfer + corptax*equmTRANS.profit;
-        if DistributeProfitsInProportion && TaxHHProfitIncome; equmTRANS.taxrev = equmTRANS.taxrev + equmTRANS.labtax*(1-profdistfrac)*equmTRANS.profit*(1-corptax); end
+            equmTRANS.taxrev = equmTRANS.labtax*equmTRANS.wage*equmTRANS.labor - equmTRANS.lumptransfer + corptax*equmTRANS.profit;
+            if DistributeProfitsInProportion && TaxHHProfitIncome; equmTRANS.taxrev = equmTRANS.taxrev + equmTRANS.labtax*(1-profdistfrac)*equmTRANS.profit*(1-corptax); end
 
-        equmTRANS.govbond(Ttransition) = equmFINALSS.govbond;
-        for it = Ttransition-1:-1:2
-            equmTRANS.govbond(it) = (equmTRANS.govbond(it+1) - deltatransvec(it)*(equmTRANS.taxrev(it)-equmTRANS.govexp(it))) / (1+deltatransvec(it)*lrgov(it));
-        end
-        equmTRANS.govbond(1) = equmINITSS.govbond;
+            equmTRANS.govexp = equmTRANS.taxrev + equmTRANS.rb*equmINITSS.govbond;
 
-        equmTRANS.lumptransfer = equmTRANS.lumptransfer + (equmTRANS.rb-lrgov).*equmTRANS.govbond;
-        equmTRANS.taxrev = equmTRANS.labtax*equmTRANS.wage*equmTRANS.labor - equmTRANS.lumptransfer + corptax*equmTRANS.profit;
-        if DistributeProfitsInProportion && TaxHHProfitIncome; equmTRANS.taxrev = equmTRANS.taxrev + equmTRANS.labtax*(1-profdistfrac)*equmTRANS.profit*(1-corptax); end
+        case 2 % adjust lump sum taxes
+            equmTRANS.govbond = equmINITSS.govbond;
+            equmTRANS.govexp = equmINITSS.govexp;
+            equmTRANS.labtax = equmINITSS.labtax;
+            equmTRANS.taxrev = equmTRANS.govexp - equmTRANS.rb*equmINITSS.govbond;
+            equmTRANS.lumptransfer = equmTRANS.labtax*equmTRANS.wage.*equmTRANS.labor + corptax*equmTRANS.profit + equmTRANS.rb*equmINITSS.govbond - equmTRANS.govexp;
+            if DistributeProfitsInProportion && TaxHHProfitIncome; equmTRANS.lumptransfer = equmTRANS.lumptransfer + equmTRANS.labtax*(1-profdistfrac)*equmTRANS.profit*(1-corptax); end
 
-    case 4 % adjust proportional tax rate
-        equmTRANS.govbond = equmINITSS.govbond;
-        equmTRANS.govexp = equmINITSS.govexp;
-        equmTRANS.lumptransfer = equmINITSS.lumptransfer;
-        equmTRANS.taxrev = equmTRANS.govexp - equmTRANS.rb*equmINITSS.govbond;
+        case 3 % adjust debt
+            if GovExpConstantFracOutput; equmTRANS.govexp = equmTRANS.output*equmINITSS.govexp/equmINITSS.output;
+            else; equmTRANS.govexp = repmat(equmINITSS.govexp,1,Ttransition); end
 
-        if DistributeProfitsInProportion && TaxHHProfitIncome; equmTRANS.labtax  = (equmTRANS.lumptransfer - corptax*equmTRANS.profit - equmTRANS.rb*equmINITSS.govbond + equmTRANS.govexp) / (equmTRANS.wage*equmTRANS.labor + (1-profdistfrac)*equmTRANS.profit*(1-corptax));
-        else; equmTRANS.labtax  = (equmTRANS.lumptransfer - corptax*equmTRANS.profit - equmTRANS.rb*equmINITSS.govbond + equmTRANS.govexp) / (equmTRANS.wage*equmTRANS.labor); end
+            equmTRANS.lumptransfer = equmINITSS.lumptransfer;
+            equmTRANS.taxrev = equmTRANS.labtax*equmTRANS.wage*equmTRANS.labor - equmTRANS.lumptransfer + corptax*equmTRANS.profit;
+            if DistributeProfitsInProportion && TaxHHProfitIncome; equmTRANS.taxrev = equmTRANS.taxrev + equmTRANS.labtax*(1-profdistfrac)*equmTRANS.profit*(1-corptax); end
+
+            % compute required increase in lumptransfer
+            lrgov = equmTRANS.rb;
+            lpvgovbc = equmFINALSS.govbond;
+            lpvlumpincr = 0;
+            for it = Ttransition:-1:1
+                lpvgovbc = (lpvgovbc + deltatransvec(it)*(equmTRANS.govexp(it) - equmTRANS.taxrev(it)))/(1+deltatransvec(it)*lrgov(it));
+                if cumdeltatrans(it)<taxincrstart; lpvlumpincr = lpvlumpincr/(1+deltatransvec(it)*lrgov(it));
+                else; lpvlumpincr = (lpvlumpincr + deltatransvec(it))/(1+deltatransvec(it)*(lrgov(it)+taxincrdecay)); end
+            end
+
+            linitlumpincr = (equmINITSS.govbond-lpvgovbc) / lpvlumpincr;
+            equmTRANS.lumptransfer = equmINITSS.lumptransfer + linitlumpincr*exp(-taxincrdecay*(cumdeltatrans-taxincrstart));
+            equmTRANS.lumptransfer(cumdeltatrans<taxincrstart) = equmINITSS.lumptransfer;
+
+            equmTRANS.taxrev = equmTRANS.labtax*equmTRANS.wage*equmTRANS.labor - equmTRANS.lumptransfer + corptax*equmTRANS.profit;
+            if DistributeProfitsInProportion && TaxHHProfitIncome; equmTRANS.taxrev = equmTRANS.taxrev + equmTRANS.labtax*(1-profdistfrac)*equmTRANS.profit*(1-corptax); end
+
+            equmTRANS.govbond(Ttransition) = equmFINALSS.govbond;
+            for it = Ttransition-1:-1:2
+                equmTRANS.govbond(it) = (equmTRANS.govbond(it+1) - deltatransvec(it)*(equmTRANS.taxrev(it)-equmTRANS.govexp(it))) / (1+deltatransvec(it)*lrgov(it));
+            end
+            equmTRANS.govbond(1) = equmINITSS.govbond;
+
+            equmTRANS.lumptransfer = equmTRANS.lumptransfer + (equmTRANS.rb-lrgov).*equmTRANS.govbond;
+            equmTRANS.taxrev = equmTRANS.labtax*equmTRANS.wage*equmTRANS.labor - equmTRANS.lumptransfer + corptax*equmTRANS.profit;
+            if DistributeProfitsInProportion && TaxHHProfitIncome; equmTRANS.taxrev = equmTRANS.taxrev + equmTRANS.labtax*(1-profdistfrac)*equmTRANS.profit*(1-corptax); end
+
+        case 4 % adjust proportional tax rate
+            equmTRANS.govbond = equmINITSS.govbond;
+            equmTRANS.govexp = equmINITSS.govexp;
+            equmTRANS.lumptransfer = equmINITSS.lumptransfer;
+            equmTRANS.taxrev = equmTRANS.govexp - equmTRANS.rb*equmINITSS.govbond;
+
+            if DistributeProfitsInProportion && TaxHHProfitIncome; equmTRANS.labtax  = (equmTRANS.lumptransfer - corptax*equmTRANS.profit - equmTRANS.rb*equmINITSS.govbond + equmTRANS.govexp) / (equmTRANS.wage*equmTRANS.labor + (1-profdistfrac)*equmTRANS.profit*(1-corptax));
+            else; equmTRANS.labtax  = (equmTRANS.lumptransfer - corptax*equmTRANS.profit - equmTRANS.rb*equmINITSS.govbond + equmTRANS.govexp) / (equmTRANS.wage*equmTRANS.labor); end
+    end
+
+    % household bonds
+    equmTRANS.bond = -equmTRANS.worldbond - equmTRANS.govbond - equmTRANS.fundbond;
+
+    holdbgrid = bgrid;
+
+    %% check Fortran
+    TRANS = load(sprintf('TRANS/sol%4d.txt',ii));
+    TRANS = struct('borrwedge',TRANS(1,:),'fundlev',TRANS(2,:),'elast',TRANS(3,:),'tfp',TRANS(4,:),'caputil',TRANS(5,:),'labor',TRANS(6,:),'labtax',TRANS(7,:),'ra',TRANS(8,:),'mpshock',TRANS(9,:),'capital',TRANS(10,:),'pi',TRANS(11,:),'rnom',TRANS(12,:),'rb',TRANS(13,:),'rborr',TRANS(14,:),'worldbond',TRANS(15,:),'fundbond',TRANS(16,:),'mc',TRANS(17,:),'gap',TRANS(18,:),'tfpadj',TRANS(19,:),'KNratio',TRANS(20,:),'wage',TRANS(21,:),'netwage',TRANS(22,:),'output',TRANS(23,:),'KYratio',TRANS(24,:),'rcapital',TRANS(25,:),'priceadjust',TRANS(26,:),'profit',TRANS(27,:),'deprec',TRANS(28,:),'investment',TRANS(29,:),'dividend',TRANS(30,:),'divrate',TRANS(31,:),'equity',TRANS(32,:),'illassetdrop',TRANS(33,:),'govbond',TRANS(34,:),'govexp',TRANS(35,:),'taxrev',TRANS(36,:),'lumptransfer',TRANS(37,:),'bond',TRANS(38,:));
+    for f=fields(TRANS)'
+        err.(f{1}) = max(abs(TRANS.(f{1})-equmTRANS.(f{1})));
+    end
+    disp(err)
+%     plot(equmTRANS.worldbond-TRANS.worldbond)
 end
-
-% household bonds
-equmTRANS.bond = -equmTRANS.worldbond - equmTRANS.govbond - equmTRANS.fundbond;
-
-holdbgrid = bgrid;
-
-%% check Fortran
-% TRANS = load(sprintf('TRANS/sol%4d.txt',ii));
-% f={'borrwedge','fundlev','elast','tfp','caputil','labor','labtax','ra','mpshock','capital','pi','rnom','rb','rborr','worldbond','fundbond','mc','gap','tfpadj','KNratio','wage','netwage','output','KYratio','rcapital','priceadjust','profit','deprec','investment','dividend','divrate','equity','illassetdrop','govbond','govexp','taxrev','lumptransfer','bond'};
-% for i=1:numel(f)
-%     err = max(abs(TRANS(i,:)-equmTRANS.(f{i})));
-%     if err>1e-5; fprintf('%s = %g\n',f{i},err); end
-% end
-
-%%
-% if ii==1
-% TRANS = load(sprintf('TRANS/sol%4d.txt',1721));
-% f={'borrwedge','fundlev','elast','tfp','caputil','labor','labtax','ra','mpshock','capital','pi','rnom','rb','rborr','worldbond','fundbond','mc','gap','tfpadj','KNratio','wage','netwage','output','KYratio','rcapital','priceadjust','profit','deprec','investment','dividend','divrate','equity','illassetdrop','govbond','govexp','taxrev','lumptransfer','bond'};
-% equmTRANS=struct;
-% for i=1:numel(f)
-%     if numel(unique(TRANS(i,:)))==1
-%         equmTRANS.(f{i}) = TRANS(i,1);
-%     else
-%         equmTRANS.(f{i}) = TRANS(i,:);
-%     end
-% end
-% end
-% subplot(2,4,1);plot([equmTRANS.capital;load(sprintf('TRANS/capital%4d.txt',ii))]');title('capital');hold on
-% subplot(2,4,2);plot([equmTRANS.labor;load(sprintf('TRANS/labor%4d.txt',ii))]');title('labor');hold on
-% subplot(2,4,3);plot([equmTRANS.mc;load(sprintf('TRANS/mc%4d.txt',ii))]');title('mc');hold on
-% subplot(2,4,4);plot([equmTRANS.ra;load(sprintf('TRANS/ra%4d.txt',ii))]');title('ra');hold on
-% subplot(2,4,5);plot([equmTRANS.rb;load(sprintf('TRANS/rb%4d.txt',ii))]');title('rb');hold on
-% subplot(2,4,6);plot([equmTRANS.pi;load(sprintf('TRANS/pi%4d.txt',ii))]');title('pi');hold on
-% if ii>1
-%     subplot(2,4,7);plot([lbond;load(sprintf('TRANS/lbond%4d.txt',ii-1))]');title('lbond');hold on
-%     subplot(2,4,8);plot([lcapital;load(sprintf('TRANS/lcapital%4d.txt',ii-1))]');title('lcapital');hold on
-% end
-% drawnow
 
 %% solve backward
 B = nan(nab,5,ngpy,Ttransition);
@@ -188,7 +166,7 @@ for it = Ttransition:-1:1
     mpshock = equmTRANS.mpshock(it);
 %     prefshock = equmTRANS.prefshock(it);
     fundlev = equmTRANS.fundlev;
-    fundbond = equmTRANS.fundbond;
+%     fundbond = equmTRANS.fundbond;
     worldbond = equmTRANS.worldbond(it);
     elast = equmTRANS.elast;
 %     gam = equmTRANS.gam(it);
@@ -264,7 +242,8 @@ for it = Ttransition:-1:1
     solnTRANS.bdot{it} = bdot;
 end
 
-ib = 1+ngpa*ngpbNEG;
+% B=[B(:,1:2,:,:) [zeros(1,1,ngpy,Ttransition);B(1:end-1,3,:,:)] B(:,4,:,:) [zeros(ngpa,1,ngpy,Ttransition);B(1:end-ngpa,5,:,:)]]; % bug?
+
 %% simulate forward
 for it = 1:Ttransition
     if Display>1; fprintf('Iterating transition forward: %d\n',it); end
@@ -276,11 +255,30 @@ for it = 1:Ttransition
     else
         lgmat = AdjustDistProportionately(agrid,adelta,solnINITSS.gmat,equmTRANS.illassetdrop(1));
     end
-    
+
     lmat = eye(ngpy) + deltatransvec(it)*ymarkovoff';
 
     lgmat1 = reshape(lgmat,nab,ngpy)*lmat';
+    ib = 1+ngpa*ngpbNEG;
     lgmat1(ib,:) = lgmat1(ib,:) + deltatransvec(it)*deathrate./abdelta(ib)*(abdelta(:)'*reshape(gmat,nab,ngpy));
+
+% ACOO_ = spconvert(load('TRANS/ACOO.txt'));
+% A = [-sum(A,2) A];
+% ACOO = spdiags(A(:,:,1),[0 -1 1 -ngpa ngpa],nab,nab)';
+% 
+iba = reshape(1:nab,ngpb,ngpa)';
+% max(max(abs(ACOO-ACOO_(iba,iba))))
+% full(ACOO(1:5,1:5))
+% full(ACOO_(iba(1:5),iba(1:5)))
+% 
+BCSR_ = spconvert(load('TRANS/BCSR.txt'));
+BCSR = spdiags(B(:,:,1,1),[0 -1 1 -ngpa ngpa],nab,nab);
+% 
+max(max(abs(BCSR-BCSR_(iba,iba))))
+full(BCSR(1:5,1:5))
+full(BCSR_(iba(1:5),iba(1:5)))
+% 
+    
     % sweep over y
     for iy = 1:ngpy %par
         lgmat1(:,iy) = spdiags(B(:,:,iy,it),[0 -1 1 -ngpa ngpa],nab,nab)\lgmat1(:,iy);
@@ -329,6 +327,11 @@ for it = 1:Ttransition
 
     if it>1; bgrid = lbgrid{it-1}; end
     % PROBLEM HERE SINCE bdelta IS USED IN DISTRIBUTION STATISTICS
+% if ~iteratingtransition
+%     fprintf('%d\t%g\t%g\n',it,...
+%         max(max(max(abs(h-reshape(load(sprintf('TRANS/h%4d.txt',it)),ngpa,ngpb,ngpy))))),...
+%         max(max(max(abs(gmat-permute(reshape(load(sprintf('TRANS/gmat%4d.txt',it)),ngpb,ngpa,ngpy),[2 1 3]))))))
+% end
 
     DistributionStatistics
 

@@ -42,7 +42,7 @@ ImposeMaxHours 		= 1
 PerfectAnnuityMarkets	= 1
 GovBondResidualZeroWorld= 1	!imposes closed economy and imputes residual bond holdings to govt
 AdjustProdGridFrisch 	= 1
-adjfricshgridfrac = 0.85_8 !fraction of Frisch to adjust by
+adjfricshgridfrac = 0.85 !fraction of Frisch to adjust by
 
 !calibration options
 CalibrateCostFunction		= 0
@@ -64,7 +64,7 @@ bondadjust 					= 0.1 !more responsive interest rate when closer to zero
 !dividend options
 DividendFundLumpSum 			= 1 
 DistributeProfitsInProportion 	= 1 !distributes profdistfrac of profits as dividends, and (1-profdistfrac) to households in proportion to productivity
-profdistfrac 					= 0.33_8 !set to alpha to neutralize effect of profits on redistribution between liquid and illiquid assets
+profdistfrac 					= 0.33 !set to alpha to neutralize effect of profits on redistribution between liquid and illiquid assets
 TaxHHProfitIncome 				= 1 !taxes profit income at labor tax rate if DistributeProfitsInProportion = 1
 
 
@@ -131,7 +131,7 @@ maxiterrho 		= 30
 tolrho			= 1.0e-8
 
 toltransition	= 1.0e-6
-deltatransmin	= 1.0/3.0
+deltatransmin	= 1.d0/3.0
 deltatransmax	= 40.0
 deltatransparam	= 0.35
 maxitertranssticky	= 5000
@@ -145,13 +145,13 @@ rho		=  0.01272892513 !0.01272892513(baseline), 0.0133348071(frisch=0.5), 0.0123
 
 
 !preferences
-deathrate	= 1.0_8/(4.0*45.0) !poisson death rate
+deathrate	= 1.d0/(4.0*45.0) !poisson death rate
 gam			= 1.0	!risk aversion
 prefshock	= 1.0
 
 
 !liquid assets
-rb			= 0.02_8/4.0_8 !liquid return
+rb			= 0.02/4.d0 !liquid return
 borrwedge 	= 0.0148846 !0.019663 ! !quarterly wedge between rb and rborr: intermediation cost  
 borrwedgemax= 0.09
 blim 		 = -1.0 	!borrowing limit multiple of quarterly output
@@ -186,16 +186,16 @@ pi 		= 0.0		!inflation rate: this is steady state target
 rnom = rb + pi		!nominal interest rate (fisher equation): this will be constant in taylor rule
 mpshock 	= 0.0		!shock to nominal interest rate in taylor rule
 
-tfp 	= 1.0_8
-elast 	= 10.0_8 !elasticity of DS aggregator
+tfp 	= 1.0
+elast 	= 10.0 !elasticity of DS aggregator
 gap 	= 0.0 !steady state output gap
 mc = (elast-1.0)/elast
 
-alpha 		= 0.33_8
+alpha 		= 0.33
 alphatilde 	= (alpha**alpha) * ((1.0-alpha)**(1.0-alpha))
-deprec 		= 0.07_8/4.0_8	!depreciation rate
+deprec 		= 0.07/4.d0	!depreciation rate
 
-fundlev 	= 0.0_8
+fundlev 	= 0.0
 utilelast 	= 0.0
 utilelastalpha  = 1.0 + utilelast-alpha*utilelast
 
@@ -203,11 +203,11 @@ utilelastalpha  = 1.0 + utilelast-alpha*utilelast
 labtax 		= 0.30
 lumptransferpc = 40000*labtax/(115000.0*2.92*4.0)
 ! lumptransfer = 0.10
-corptax 		= 0.0_8
+corptax 		= 0.0
 ssdebttogdp 	= 0.26*4 !if foreign sector assumed to hold residual bonds
 
 !calibration targets (relative to quarterly output)
-targetMeanIll 		= 2.92_8 * 4.0_8
+targetMeanIll 		= 2.92 * 4.d0
 targetMeanLiq  		= 0.2* 4.0
 targetMedianIll 	= 0.21 * targetMeanIll
 targetP75Ill 		= 0.71 * targetMeanIll
@@ -224,11 +224,13 @@ IF (DividendFundLumpSum ==0) THEN
 	targetKYratio 	= targetMeanIll/(1.0 - fundlev)
 
 ELSE IF (DividendFundLumpSum ==1) THEN
+	
 	la = -(deprec+rb*fundlev) 
 	IF(DistributeProfitsInProportion==0) lb = ((elast-1.0)/elast)*alpha + (1.0/(1.0-fundlev))*targetMeanIll*(deprec+rb*fundlev) + (1.0/elast)*(1.0-corptax)
-	IF(DistributeProfitsInProportion==1) lb = ((elast-1.0_8)/elast)*alpha + (1.0_8/(1.0_8-fundlev))*targetMeanIll*(deprec+rb*fundlev) + (1.0_8/elast)*(1.0_8-corptax)*profdistfrac
-	lc = -(1.0_8/(1.0_8-fundlev)) * targetMeanIll *((elast-1)/elast) *alpha
-	targetKYratio = (-lb+sqrt(lb*lb-4.0_8*la*lc)) / (2.0_8*la)
+	IF(DistributeProfitsInProportion==1) lb = ((elast-1.0)/elast)*alpha + (1.0/(1.0-fundlev))*targetMeanIll*(deprec+rb*fundlev) + (1.0/elast)*(1.0-corptax)*profdistfrac
+	lc = -(1.0/(1.0-fundlev)) * targetMeanIll *((elast-1)/elast) *alpha
+	
+	targetKYratio = (-lb+sqrt(lb**2-4*la*lc)) / (2*la)
 END IF
 
 !if solving for equilibrium, these are guesses
@@ -248,7 +250,7 @@ IF(NoLaborSupply==1) THEN
 	meanlabeff = KYratio**(alpha/(alpha-1))
 ELSE
 	!scale efficiency units so that average hours would be 1/3 in eqm if cov(z,h)=0
-	meanlabeff = (KYratio/KNratio)/(1.0_8/3.0_8)
+	meanlabeff = (KYratio/KNratio)/(1.d0/3.0)
 END IF		
 
 frisch 		= 1.0 	!frisch elasticity labor supply
@@ -269,7 +271,7 @@ END IF
 
 !guess chi's so that at average wages and average consumption hours =1/3 (sets C/Y = 0.75)
 IF (NoLaborSupply==1)	chi	= 0.0 
-IF (LaborSupplySep==1)	chi	= meanlabeff / (0.75 **(-gam) * (1.0/3.0_8)**(1.0/frisch))
+IF (LaborSupplySep==1)	chi	= meanlabeff / (0.75 **(-gam) * (1.d0/3.0)**(1.0/frisch))
 IF (LaborSupplyGHH==1)	chi = meanlabeff / ((1.0/3.0)**(1.0/frisch)) 
 
 !requires an intial guess of profits if DistributeProfitsInProportion = 1, since output not known in advance

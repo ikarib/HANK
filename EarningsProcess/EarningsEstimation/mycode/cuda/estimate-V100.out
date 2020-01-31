@@ -1,0 +1,58 @@
+CUDA-capable device count: 8
+GPU Device #0: Tesla V100-PCIE-16GB
+Simulation paths: 2097152
+Grid size: 1024
+GPU Device #1: Tesla V100-PCIE-16GB
+Simulation paths: 2097152
+Grid size: 1024
+GPU Device #2: Tesla V100-PCIE-16GB
+Simulation paths: 2097152
+Grid size: 1024
+GPU Device #3: Tesla V100-PCIE-16GB
+Simulation paths: 2097152
+Grid size: 1024
+GPU Device #4: Tesla V100-PCIE-16GB
+Simulation paths: 2097152
+Grid size: 1024
+GPU Device #5: Tesla V100-PCIE-16GB
+Simulation paths: 2097152
+Grid size: 1024
+GPU Device #6: Tesla V100-PCIE-16GB
+Simulation paths: 2097152
+Grid size: 1024
+GPU Device #7: Tesla V100-PCIE-16GB
+Simulation paths: 2097152
+Grid size: 1024
+
+    At the return from NEWUOA     Number of function values =   140
+    Least value of F =  3.127740429938658E-03         The corresponding X is:
+    -3.455407E+00  -8.097605E+00   1.001776E+00   6.069072E+00  -1.241002E+00
+    -6.284643E+00
+ IterOpt=         139
+
+Total time (sec.): 0.045656
+
+Final objective function value: 0.00312774042993866
+
+The returned solution is:
+ lambda: 0.0612160110061503  0.00060834891151459
+ sigma:  1.46281533934875  1.99538404060361
+ delta:  0.224261683597153  0.00186125130990069
+
+ Moment:      Target:	Model:
+ MeanLogY     nan	2.80995331854729
+ VarLogY      0.76	0.759964604817997
+ SkewLogY     nan	0.156080351824955
+ KurtLogY     nan	6.05965481939359
+ MeanD1LogY   nan	0.000128296479771357
+ VarD1LogY    0.217	0.215079539354058
+ SkewD1LogY   nan	0.607166739321971
+ KurtD1LogY   13.377	13.3667689008164
+ MeanD5LogY   nan	0.000113135854691361
+ VarD5LogY    0.437	0.439028317546594
+ SkewD5LogY   nan	0.0226605364738695
+ KurtD5LogY   8.782	8.77548413819141
+ FracD1Less5  nan	0.422241330146788
+ FracD1Less10 0.51	0.523578226566316
+ FracD1Less20 0.68	0.649226963520048
+ FracD1Less50 0.85	0.836020112037659

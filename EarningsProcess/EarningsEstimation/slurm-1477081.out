@@ -1,0 +1,10 @@
+ Time:    67.3528500000000     
+ Time:    64.3762020000000     
+ Time:    62.6288790000000     
+ Time:    56.5986600000001     
+ Time:    57.9670700000000     
+ Time:    57.6214630000000     
+ Time:    57.2688370000000     
+ Time:    56.7787749999999     
+slurmstepd: error: *** JOB 1477081 ON n0 CANCELLED AT 2019-07-22T15:17:19 DUE TO TIME LIMIT ***
+slurmstepd: error: task_p_post_term: rmdir(/dev/cpuset/slurm1477081/slurm1477081.4294967294_0) failed Device or resource busy

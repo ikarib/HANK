@@ -119,6 +119,10 @@ END DO
 
 gmat = MERGE(0.0_8,gmat,abs(gmat)<1.0e-50_8)
 
+OPEN(3, FILE = trim(OutputDir) // '../gmat.dat')
+READ(3,'(2000G26.15)') gmat
+CLOSE(3)
+
 !$OMP PARALLEL DO PRIVATE(ia,ib,iy,iab)	
 DO iaby = 1,naby
 	ia = afromaby(iaby)

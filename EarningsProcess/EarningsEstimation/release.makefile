@@ -1,6 +1,6 @@
 FC = ifort
-FCFLAGS = -m64 -traceback -O3 -qopenmp -implicitnone  -Wl,-stack_size,0x100000000
-LDFLAFS = -m64 -traceback -O3 -qopenmp -implicitnone  -Wl,-stack_size,0x100000000
+FCFLAGS = -O3 -qopenmp -fpconstant
+LDFLAGS = -qopenmp
 
 PROG = $(OUT)
 
@@ -11,12 +11,8 @@ SUBR = 	MakeGuess.o Estimation.o Simulate.o ComputeMoments.o SetParameters.o dfo
 
 OBJ = $(MOD) $(SUBR)
 
-$(PROG).out: $(OBJ) Main.o
-	$(FC) $(FCFLAGS) -o $@ $^ $(LDFLAGS)
-Main.o: $(MOD)
-
-%: %.o
-	$(FC) $(FCFLAGS) -o $@ $^ $(LDFLAGS)
+Main: $(OBJ) Main.o
+	$(FC) $(LDFLAGS) -o $@ $^
 
 %.o: %.f90
 	$(FC) $(FCFLAGS) -c $<

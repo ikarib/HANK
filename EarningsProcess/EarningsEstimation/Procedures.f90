@@ -582,7 +582,7 @@ CHARACTER		::lstring*80
 INTEGER			::i1
 
 WRITE(UNIT=lstring, FMT='(I5)') n2
-lstring = '('//trim(lstring) // 'F16.6)'
+lstring = '('//trim(lstring) // 'G23.15)'
 DO i1=1,n1
 	WRITE(f,lstring) (mat(i1,:))
 END DO

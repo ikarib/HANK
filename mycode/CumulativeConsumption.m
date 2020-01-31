@@ -8,7 +8,7 @@ cdcumvec = zeros(nab,2,ngpy);
 tic
 for it = 1:nsteps
     cdcumvec = cdcumvec + deltacumcon*(cdvec + reshape(reshape(cdcumvec,2*nab,ngpy)*ymarkovoff',nab,2,ngpy));
-    for iy=1:ngpy %par
+    for iy = 1:ngpy %par
         cdcumvec(:,:,iy) = spdiags(B(:,:,iy),[0 -1 1 -ngpa ngpa],nab,nab)'\cdcumvec(:,:,iy);
     end
     if it==round(1/deltacumcon)

@@ -41,6 +41,8 @@ CLOSE(3)
 		CALL StationaryDistribution
 		CALL DistributionStatistics
 
+
+
 		IF(DividendFundLumpSum==0) capital = Ea/(1.0-fundlev)
 		IF(DividendFundLumpSum==1) THEN
 			IF(DistributeProfitsInProportion==0) capital = Ea/(1.0-fundlev + (1.0-mc)*(1.0-corptax)/(ra*KYratio))
